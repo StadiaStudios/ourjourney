@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey | Install App</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fce7f3; /* Light pink background */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+        }
+        /* Custom styles for an attractive splash screen */
+        .card {
+            background-color: #ffffff;
+            border: 4px solid #db2777; /* Deep pink border */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="installPromptCard" class="card p-8 rounded-2xl shadow-2xl transition duration-500 transform scale-100">
+            
+            <div class="text-4xl mb-4">💖</div>
+            <h1 class="text-3xl font-extrabold text-pink-700 mb-2">Install Our Journey</h1>
+            <p class="text-lg text-gray-600 mb-6">This app is designed to be added to your device's home screen for the best experience.</p>
+            
+            <!-- Instructions tailored for mobile users -->
+            <div class="text-left bg-pink-50 p-4 rounded-lg border border-pink-200">
+                <p class="font-bold text-pink-600 mb-2">How to Install:</p>
+                <ol class="list-decimal list-inside text-gray-700 space-y-2 text-sm">
+                    <li><span class="font-medium">Tap the 'Share' icon</span> (<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block align-text-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/></svg>) or 'Menu' icon (<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block align-text-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>) in your browser.</li>
+                    <li>Select <span class="font-medium text-pink-700">"Add to Home Screen"</span> (iOS) or <span class="font-medium text-pink-700">"Install App"</span> (Android).</li>
+                    <li>Open the app from your home screen icon!</li>
+                </ol>
+            </div>
+
+            <button id="continueButton" class="mt-6 w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-xl transition duration-300 shadow-md transform hover:scale-[1.02]">
+                Continue to App In Browser
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const continueButton = document.getElementById('continueButton');
+
+        // Check if the app is running in 'standalone' mode (PWA installed)
+        function isStandalone() {
+            // Check display mode query parameter from manifest's start_url
+            if (window.location.search.includes('source=pwa')) {
+                return true;
+            }
+            // Check for traditional browser detection
+            return (window.matchMedia('(display-mode: standalone)').matches || 
+                    document.referrer.includes('android-app://'));
+        }
+
+        // If PWA is installed, redirect immediately to the main content page.
+        if (isStandalone()) {
+            console.log("Running in standalone mode. Redirecting to main app.");
+            window.location.replace('index.html');
+        } else {
+            console.log("Not in standalone mode. Showing install prompt.");
+            // If not installed, clicking the button proceeds to the main page anyway.
+            continueButton.addEventListener('click', () => {
+                window.location.href = 'splash.html';
+            });
+        }
+    </script>
+</body>
+</html>

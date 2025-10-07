@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Our Journey</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Apply the Inter font and set a nice fullscreen background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 0;
+            margin: 0; 
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        /* --- DARK MODE STYLES --- */
+        body.dark {
+            background-color: #1a202c; /* Darker background */
+            color: #e2e8f0; /* Light text */
+        }
+        
+        body.dark .bg-white {
+            background-color: #2d3748; /* Header/Card backgrounds */
+            color: #e2e8f0;
+        }
+
+        body.dark .shadow-lg {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12);
+        }
+
+        body.dark .text-gray-700 { color: #cbd5e0; }
+        body.dark .text-gray-600 { color: #a0aec0; }
+        body.dark .text-gray-500 { color: #718096; }
+        
+        /* Inverse colors for pink elements in dark mode for contrast */
+        body.dark .bg-pink-50 {
+            background-color: #4a5568; /* Dark card background */
+            border-color: #4a5568; 
+        }
+        /* Fix: Ensure borders are dark in dark mode */
+        body.dark .border-pink-100 { 
+            border-color: #4a5568; 
+        }
+        body.dark .border-pink-300 { border-color: #4a5568; }
+        body.dark .text-pink-600, body.dark .text-pink-700 { color: #ff5f5f; /* Orange accent in dark mode */ }
+        body.dark .border-pink-200 { border-color: #4a5568; }
+        body.dark .text-gray-700 { color: #e2e8f0; }
+        body.dark .border-gray-300 { border-color: #4a5568; background-color: #2d3748; }
+    </style>
+</head>
+<body>
+    
+    <!-- Sticky Top Header -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
+        <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
+            <!-- Back Arrow Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
+                <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+            </svg>
+        </a>
+        <h1 class="text-2xl font-extrabold text-pink-700">App Settings</h1>
+        <p class="text-sm w-8"></p><!-- Spacer for alignment -->
+    </header>
+
+    <!-- Main Settings Content -->
+    <div id="app" class="w-full max-w-xl px-6 md:px-8 transition-all duration-300" style="padding-top: 7rem; padding-bottom: 2rem;">
+
+        <!-- Appearance Section -->
+        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
+            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">Appearance</h2>
+            
+            <div class="flex items-center justify-between">
+                <span class="text-lg font-medium text-gray-700">Dark Mode</span>
+                <label for="darkModeToggle" class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" value="" id="darkModeToggle" class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-600"></div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Names Section -->
+        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
+            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">Our Names</h2>
+            
+            <label for="name1" class="block text-left text-sm font-medium text-gray-700 mb-1">Your Name (Person 1):</label>
+            <input type="text" id="name1" placeholder="Enter Name 1"
+                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-4 text-lg text-gray-700">
+
+            <label for="name2" class="block text-left text-sm font-medium text-gray-700 mb-1">Partner's Name (Person 2):</label>
+            <input type="text" id="name2" placeholder="Enter Name 2"
+                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-4 text-lg text-gray-700">
+            
+            <button id="saveNamesButton" 
+                    class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-xl transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 mt-2">
+                Save Names
+            </button>
+        </div>
+
+        <!-- Photo Management Section (NEW) -->
+        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
+            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">Photo Management</h2>
+            
+            <p class="text-sm text-gray-500 mb-4">This will permanently remove your couple photo from this device.</p>
+
+            <button id="removePhotoButton" 
+                    class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                Remove Couple Photo
+            </button>
+        </div>
+
+        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
+    <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">About</h2>
+    
+    <div class="flex items-center justify-between">
+        <span class="text-lg font-medium text-gray-700">App Version</span>
+        <span class="text-lg text-gray-600 font-mono" id="appVersionDisplay">V1.0.0 (BETA)</span>
+    </div>
+
+    <p class="text-sm text-gray-500 mt-4 text-center">Built with ❤️ for Our Journey. | StadiaStudios @ 2025</p>
+</div>
+
+        <!-- Custom Notification Message Box -->
+        <div id="messageBox" class="fixed top-4 right-4 z-50 p-3 bg-green-500 text-white rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none" role="alert">
+            Settings saved successfully!
+        </div>
+
+    </div>
+
+    <script>
+        // --- STORAGE KEYS ---
+        const STORAGE_KEY_NAMES = '__relationship_names';
+        const STORAGE_KEY_THEME = '__app_theme'; 
+        const STORAGE_KEY_PHOTO = '__relationship_photo_data'; // Added for photo management
+
+        // --- DOM Elements ---
+        const messageBox = document.getElementById('messageBox');
+        
+        // Names Elements
+        const name1Input = document.getElementById('name1');
+        const name2Input = document.getElementById('name2');
+        const saveNamesButton = document.getElementById('saveNamesButton');
+        
+        // Theme Elements
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        // Photo Elements (NEW)
+        const removePhotoButton = document.getElementById('removePhotoButton');
+
+
+        // --- UTILITY ---
+
+        /**
+         * Displays a temporary notification message.
+         * @param {string} message - The message to display.
+         * @param {string} bgColor - Tailwind background color class.
+         */
+        function showMessage(message, bgColor) {
+            messageBox.textContent = message;
+            // Reset colors
+            messageBox.className = "fixed top-4 right-4 z-50 p-3 text-white rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none";
+            // Apply new color
+            messageBox.classList.add(bgColor);
+            
+            // Show message
+            messageBox.classList.remove('opacity-0');
+            messageBox.classList.add('opacity-100');
+
+            // Hide message after 3 seconds
+            setTimeout(() => {
+                messageBox.classList.remove('opacity-100');
+                messageBox.classList.add('opacity-0');
+            }, 3000);
+        }
+        
+        // --- THEME LOGIC ---
+
+        /**
+         * Applies the saved theme preference to the body element.
+         */
+        function applyTheme() {
+            const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                darkModeToggle.checked = true;
+            } else {
+                document.body.classList.remove('dark');
+                darkModeToggle.checked = false;
+            }
+        }
+        
+        /**
+         * Toggles dark mode and saves the preference.
+         */
+        function toggleDarkMode() {
+            const isDark = darkModeToggle.checked;
+            const theme = isDark ? 'dark' : 'light';
+            localStorage.setItem(STORAGE_KEY_THEME, theme);
+            applyTheme(); // Apply the change instantly
+            showMessage(`Dark mode is now ${isDark ? 'ON' : 'OFF'}!`, 'bg-pink-600');
+        }
+        
+        // --- NAMES LOGIC ---
+
+        /**
+         * Loads names from storage into the input fields.
+         */
+        function loadNames() {
+            const namesJson = localStorage.getItem(STORAGE_KEY_NAMES);
+            let names = { name1: "", name2: "" };
+
+            if (namesJson) {
+                try {
+                    names = JSON.parse(namesJson);
+                } catch (e) {
+                    console.error("Error parsing names from storage:", e);
+                }
+            }
+            
+            name1Input.value = names.name1 || "";
+            name2Input.value = names.name2 || "";
+        }
+        
+        /**
+         * Saves the names from the input fields to localStorage.
+         */
+        function saveNames() {
+            const name1 = name1Input.value.trim() || "User 1";
+            const name2 = name2Input.value.trim() || "User 2";
+            
+            const namesObject = { name1: name1, name2: name2 };
+            
+            localStorage.setItem(STORAGE_KEY_NAMES, JSON.stringify(namesObject));
+            showMessage("Names saved successfully!", "bg-green-600");
+        }
+
+        // --- PHOTO LOGIC (NEW) ---
+
+        /**
+         * Removes the stored photo from localStorage and updates the display.
+         * The main page (index.html) will automatically detect the missing photo 
+         * and show the placeholder on its next load or timer update.
+         */
+        function removePhoto() {
+            localStorage.removeItem(STORAGE_KEY_PHOTO);
+            // We use the same message logic as index.html for consistency.
+            showMessage("Photo removed. Refresh the main page to see the change.", "bg-red-500");
+        }
+
+
+        // --- INITIALIZATION AND LISTENERS ---
+
+        function initSettings() {
+            // Load and apply theme and set toggle state
+            applyTheme();
+            // Load names into the input fields
+            loadNames();
+            
+            // Event listeners
+            darkModeToggle.addEventListener('change', toggleDarkMode);
+            saveNamesButton.addEventListener('click', saveNames);
+            removePhotoButton.addEventListener('click', removePhoto); // NEW
+        }
+
+        window.onload = initSettings;
+
+    </script>
+</body>
+</html>
