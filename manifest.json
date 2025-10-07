@@ -2,7 +2,7 @@
 "name": "Our Journey",
 "short_name": "Our Journey",
 "description": "A relationship time tracker and memory app.",
-"start_url": "/splash.html?source=pwa",
+"start_url": "splash.html",
 "scope": "/",
 "display": "standalone",
 "background_color": "#111",
@@ -19,4 +19,5 @@
 "type": "image/png"
 }
 ]
+
 }
