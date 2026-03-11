@@ -152,6 +152,15 @@
         body.dark .alternate-units {
             border-top-color: #334155;
         }
+
+        /* Anniversary Section Custom Styles */
+        .milestone-card {
+            transition: all 0.2s ease;
+        }
+        body.dark .milestone-card {
+            background: #1a1a1a;
+            border-color: #333;
+        }
     </style>
 </head>
 <body>
@@ -191,6 +200,9 @@
                 <div id="altStats" class="space-y-2 text-gray-600 font-medium italic"></div>
             </div>
         </div>
+
+        <!-- NEW: Anniversary Section Placeholder -->
+        <div id="anniversaryContainer" class="mb-8 hidden"></div>
         
         <div id="inputSection" class="p-4 bg-pink-50 rounded-xl border border-pink-200 shadow-md">
             <label for="startDate" class="block text-left text-sm font-semibold text-gray-700 mb-2">Set Our Start Date:</label>
@@ -207,6 +219,7 @@
         </div>
     </div>
 
+    <script src="anniversaries-section.js"></script>
     <script>
         const STORAGE_KEY_DATE = '__relationship_start_date';
         const STORAGE_KEY_PHOTO = '__relationship_photo_data';
@@ -228,6 +241,7 @@
         const photoPlaceholder = document.getElementById('photoPlaceholder');
         const welcomeMessage = document.getElementById('welcomeMessage');
         const timerContainer = document.getElementById('timerContainer');
+        const anniversaryContainer = document.getElementById('anniversaryContainer');
 
         let intervalId = null;
 
@@ -243,7 +257,6 @@
                 try { names = JSON.parse(namesJson); } catch (e) {}
             }
             
-            // Logic to handle 1 vs 2 names
             let titleText = "";
             const n1 = names.name1?.trim();
             const n2 = names.name2?.trim();
@@ -273,16 +286,23 @@
                 welcomeMessage.classList.remove('hidden');
                 photoWrapper.classList.add('hidden');
                 timerContainer.classList.add('hidden');
+                anniversaryContainer.classList.add('hidden');
                 return;
             }
 
             welcomeMessage.classList.add('hidden');
             photoWrapper.classList.remove('hidden');
             timerContainer.classList.remove('hidden');
+            anniversaryContainer.classList.remove('hidden');
 
             const parts = startDateString.split('-');
             const startDate = new Date(parts[0], parts[1] - 1, parts[2]);
             const nowDate = new Date();
+            
+            // Trigger Anniversary Module
+            if (window.renderAnniversaries) {
+                window.renderAnniversaries(startDate);
+            }
             
             if (startDate.getTime() > nowDate.getTime()) {
                 dateDisplay.textContent = `Awaiting our day: ${startDate.toLocaleDateString()}`;

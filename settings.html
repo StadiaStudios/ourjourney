@@ -21,6 +21,12 @@
             transition: background-color 0.3s;
         }
 
+        header {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
         body.dark {
             background-color: #111111;
             color: #e2e8f0;
@@ -47,11 +53,16 @@
             background-color: #222222;
             border-color: #4a5568;
         }
+
+        body.dark header {
+            background-color: rgba(34, 34, 34, 0.7);
+            border-bottom-color: #334155;
+        }
     </style>
 </head>
 <body>
     
-    <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
+    <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
         <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
                 <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
