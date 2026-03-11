@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Journey</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -18,6 +19,13 @@
             margin: 0; 
             width: 100%;
             transition: background-color 0.3s;
+        }
+
+        /* Glassmorphism Navbar */
+        header {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
         
         #durationList li {
@@ -75,6 +83,11 @@
             color: #e2e8f0;
         }
         
+        body.dark header {
+            background-color: rgba(34, 34, 34, 0.7);
+            border-bottom-color: #334155;
+        }
+
         body.dark .bg-white {
             background-color: #222222;
             color: #e2e8f0;
@@ -143,7 +156,7 @@
 </head>
 <body>
     
-    <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
+    <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
         <a href="settings.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings">
                 <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.78 1.35a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.74v.44a2 2 0 0 1-1 1.73l-.15.08a2 2 0 0 0-.73 2.73l.78 1.35a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.78-1.35a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.44a2 2 0 0 1 1-1.73l.15-.08a2 2 0 0 0 .73-2.73l-.78-1.35a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
@@ -225,11 +238,26 @@
         
         function updateNamesDisplay() {
             const namesJson = localStorage.getItem(STORAGE_KEY_NAMES);
-            let names = { name1: "You", name2: "Me" };
+            let names = { name1: "", name2: "" };
             if (namesJson) {
                 try { names = JSON.parse(namesJson); } catch (e) {}
             }
-            const titleText = `${names.name1} & ${names.name2}`;
+            
+            // Logic to handle 1 vs 2 names
+            let titleText = "";
+            const n1 = names.name1?.trim();
+            const n2 = names.name2?.trim();
+
+            if (n1 && n2) {
+                titleText = `${n1} & ${n2}`;
+            } else if (n1) {
+                titleText = n1;
+            } else if (n2) {
+                titleText = n2;
+            } else {
+                titleText = "Our Journey";
+            }
+
             mainTitle.textContent = `${titleText} 💖`;
             welcomeNames.textContent = titleText;
         }
@@ -252,7 +280,8 @@
             photoWrapper.classList.remove('hidden');
             timerContainer.classList.remove('hidden');
 
-            const startDate = new Date(startDateString);
+            const parts = startDateString.split('-');
+            const startDate = new Date(parts[0], parts[1] - 1, parts[2]);
             const nowDate = new Date();
             
             if (startDate.getTime() > nowDate.getTime()) {

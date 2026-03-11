@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Journey - Settings</title>
+    <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -34,139 +35,112 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12);
         }
 
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey; 
-            border-radius: 10px;
-        }
- 
-        ::-webkit-scrollbar-thumb {
-            background: rgb(122, 1, 116); 
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #da46ff; 
-        }
-
         body.dark .text-gray-700 { color: #cbd5e0; }
-        body.dark .text-gray-600 { color: #a0aec0; }
+        body.dark .text-gray-600 { color: #8894a3; }
         body.dark .text-gray-500 { color: #718096; }
-        
-        body.dark .bg-pink-50 {
-            background-color: #4a5568;
-            border-color: #4a5568; 
-        }
 
-        body.dark .border-pink-100 { 
-            border-color: #4a5568; 
-        }
-        body.dark .border-pink-300 { border-color: #4a5568; }
-        body.dark .text-pink-600, body.dark .text-pink-700 { color: #e45fff; }
+        body.dark .bg-pink-50 { background-color: #222; }
         body.dark .border-pink-200 { border-color: #4a5568; }
-        body.dark .text-gray-700 { color: #e2e8f0; }
-        body.dark .border-gray-300 { border-color: #4a5568; background-color: #2d3748; }
+
+        body.dark input[type="text"] {
+            color: #e2e8f0; 
+            background-color: #222222;
+            border-color: #4a5568;
+        }
     </style>
 </head>
 <body>
+    
     <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
         <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
                 <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
             </svg>
         </a>
-        <h1 class="text-2xl font-extrabold text-pink-700">App Settings</h1>
-        <p class="text-sm w-8"></p>
+        <h1 class="text-2xl font-extrabold text-pink-700">Settings</h1>
+        <div class="w-8"></div>
     </header>
 
-    <div id="app" class="w-full max-w-xl px-6 md:px-8 transition-all duration-300" style="padding-top: 7rem; padding-bottom: 2rem;">
-        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
-            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">Appearance</h2>
-            <div class="flex items-center justify-between">
-                <span class="text-lg font-medium text-gray-700">Dark Mode</span>
-                <label for="darkModeToggle" class="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" id="darkModeToggle" class="sr-only peer">
-                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-pink-600"></div>
-                </label>
-            </div>
-        </div>
+    <div class="w-full max-w-xl px-6 md:px-8 pt-24 pb-12">
+        <div class="bg-white rounded-2xl shadow-xl p-6 border border-pink-100 space-y-8">
+            
+            <section>
+                <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                    <span class="mr-2 text-pink-500">✨</span> Appearance
+                </h2>
+                <div class="flex items-center justify-between p-4 bg-pink-50 rounded-xl border border-pink-200">
+                    <div>
+                        <p class="font-semibold text-gray-700">Dark Mode</p>
+                        <p class="text-sm text-gray-500">Switch between light and dark themes</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="darkModeToggle" class="sr-only peer">
+                        <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-pink-600"></div>
+                    </label>
+                </div>
+            </section>
 
-        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
-            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">Our Names</h2>
-            <label for="name1" class="block text-left text-sm font-medium text-gray-700 mb-1">Your Name (Person 1):</label>
-            <input type="text" id="name1" placeholder="Enter Name 1"
-                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-4 text-lg text-gray-700">
-            <label for="name2" class="block text-left text-sm font-medium text-gray-700 mb-1">Partner's Name (Person 2):</label>
-            <input type="text" id="name2" placeholder="Enter Name 2"
-                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 mb-4 text-lg text-gray-700">
-            <button id="saveNamesButton" 
-                    class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-xl transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 mt-2">
-                Save Names
-            </button>
-        </div>
+            <section>
+                <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                    <span class="mr-2 text-pink-500">📝</span> Customize Names
+                </h2>
+                <div class="space-y-4">
+                    <div class="bg-pink-50 p-4 rounded-xl border border-pink-200">
+                        <label class="block text-sm font-semibold text-gray-600 mb-2">First Name</label>
+                        <input type="text" id="name1" placeholder="Enter first name" 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500">
+                    </div>
+                    <div class="bg-pink-50 p-4 rounded-xl border border-pink-200">
+                        <label class="block text-sm font-semibold text-gray-600 mb-2">Second Name</label>
+                        <input type="text" id="name2" placeholder="Enter second name" 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500">
+                    </div>
+                    <button id="saveNames" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-xl transition shadow-md">
+                        Save Names
+                    </button>
+                </div>
+            </section>
 
-        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
-            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">Photo Management</h2>
-            <p class="text-sm text-gray-500 mb-4">This will permanently remove your couple photo from this device.</p>
-            <button id="removePhotoButton" 
-                    class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl transition duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                Remove Couple Photo
-            </button>
+            <section>
+                <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
+                    <span class="mr-2 text-pink-500">📸</span> Photo Management
+                </h2>
+                <button id="removePhoto" class="w-full bg-gray-100 hover:bg-red-50 text-gray-600 hover:text-red-600 font-bold py-3 rounded-xl transition border border-gray-200">
+                    Reset Photo to Default
+                </button>
+            </section>
         </div>
+    </div>
 
-        <div class="mb-8 p-6 bg-white rounded-xl shadow-lg border border-pink-100">
-            <h2 class="text-xl font-bold text-gray-700 mb-4 border-b pb-2 border-pink-200">About</h2>
-            <div class="flex items-center justify-between">
-                <span class="text-lg font-medium text-gray-700">App Version</span>
-                <span class="text-lg text-gray-600 font-mono" id="appVersionDisplay">V1.1.1</span>
-            </div>
-            <p class="text-sm text-gray-500 mt-4 text-center">Built with ❤️ for Our Journey. | StadiaStudios @ 2025</p>
-        </div>
-
-        <div id="messageBox" class="fixed top-4 right-4 z-50 p-3 bg-green-500 text-white rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none" role="alert">
-            Settings saved successfully!
-        </div>
+    <div id="messageBox" class="fixed top-4 right-4 z-50 p-3 bg-green-500 text-white rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none" role="alert">
+        Settings saved!
     </div>
 
     <script>
         const STORAGE_KEY_NAMES = '__relationship_names';
-        const STORAGE_KEY_THEME = '__app_theme'; 
+        const STORAGE_KEY_THEME = '__app_theme';
         const STORAGE_KEY_PHOTO = '__relationship_photo_data';
 
-        const messageBox = document.getElementById('messageBox');
+        const darkModeToggle = document.getElementById('darkModeToggle');
         const name1Input = document.getElementById('name1');
         const name2Input = document.getElementById('name2');
-        const saveNamesButton = document.getElementById('saveNamesButton');
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const removePhotoButton = document.getElementById('removePhotoButton');
+        const saveNamesButton = document.getElementById('saveNames');
+        const removePhotoButton = document.getElementById('removePhoto');
+        const messageBox = document.getElementById('messageBox');
 
         function showMessage(message, bgColor) {
             messageBox.textContent = message;
-            messageBox.className = "fixed top-4 right-4 z-50 p-3 text-white rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none";
-            messageBox.classList.add(bgColor);
-            messageBox.classList.remove('opacity-0');
-            messageBox.classList.add('opacity-100');
-
-            setTimeout(() => {
-                messageBox.classList.remove('opacity-100');
-                messageBox.classList.add('opacity-0');
-            }, 3000);
+            messageBox.className = `fixed top-4 right-4 z-50 p-3 text-white rounded-lg shadow-xl opacity-100 transition-opacity duration-300 ${bgColor}`;
+            setTimeout(() => { messageBox.classList.replace('opacity-100', 'opacity-0'); }, 3000);
         }
-        
+
         function applyTheme() {
             const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark');
-                darkModeToggle.checked = true;
-            } else {
-                document.body.classList.remove('dark');
-                darkModeToggle.checked = false;
-            }
+            const isDark = savedTheme === 'dark';
+            document.body.classList.toggle('dark', isDark);
+            darkModeToggle.checked = isDark;
         }
-        
+
         function toggleDarkMode() {
             const isDark = darkModeToggle.checked;
             const theme = isDark ? 'dark' : 'light';
@@ -188,15 +162,15 @@
         }
         
         function saveNames() {
-            const name1 = name1Input.value.trim() || "User 1";
-            const name2 = name2Input.value.trim() || "User 2";
+            const name1 = name1Input.value.trim();
+            const name2 = name2Input.value.trim();
             localStorage.setItem(STORAGE_KEY_NAMES, JSON.stringify({ name1, name2 }));
             showMessage("Names saved successfully!", "bg-green-600");
         }
 
         function removePhoto() {
             localStorage.removeItem(STORAGE_KEY_PHOTO);
-            showMessage("Photo removed. Refresh the main page to see the change.", "bg-red-500");
+            showMessage("Photo removed.", "bg-red-500");
         }
 
         window.onload = function() {
@@ -205,7 +179,7 @@
             darkModeToggle.addEventListener('change', toggleDarkMode);
             saveNamesButton.addEventListener('click', saveNames);
             removePhotoButton.addEventListener('click', removePhoto);
-        };
+        }
     </script>
 </body>
 </html>
