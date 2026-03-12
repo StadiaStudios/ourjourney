@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHA-256 Pro Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #db2777, #7c3aed);
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #db2777;
+        }
+
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #050505;
+            color: #eeeeee;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow: hidden;
+        }
+        
+        .pro-gradient-text {
+            background: linear-gradient(135deg, #db2777 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pro-bg {
+            background: linear-gradient(135deg, #db2777 0%, #7c3aed 100%);
+        }
+
+        .panel-glass {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .input-area:focus {
+            border-color: #db2777;
+            background: rgba(219, 39, 119, 0.05);
+        }
+
+        /* Fullscreen Layout Overrides */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+                overflow-y: auto;
+            }
+            body, html { overflow-y: auto; }
+        }
+    </style>
+</head>
+<body class="selection:bg-pink-500/30">
+
+    <div class="main-container">
+        <!-- Left Section: Input & Branding -->
+        <div class="flex flex-col p-8 lg:p-16 justify-between border-r border-white/5">
+            <div>
+                <div class="flex items-center gap-4 mb-12">
+                    <div class="w-12 h-12 pro-bg rounded-xl flex items-center justify-center shadow-lg shadow-pink-500/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    <span class="text-xl font-black tracking-tighter uppercase">Pro Crypto</span>
+                </div>
+
+                <h1 class="text-5xl lg:text-7xl font-black tracking-tighter leading-tight mb-6">
+                    Generate <br><span class="pro-gradient-text">SHA-256</span>
+                </h1>
+                <p class="text-gray-500 text-lg max-w-sm font-medium leading-relaxed">
+                    Transform any text into a secure 256-bit digital fingerprint for your premium app configurations.
+                </p>
+            </div>
+
+            <div class="mt-12">
+                <label class="block text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-4">Entry String</label>
+                <input type="text" id="inputString" placeholder="Enter your pro code..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white outline-none input-area transition-all text-xl font-medium">
+            </div>
+
+            <div class="hidden lg:block pt-12">
+                <p class="text-[10px] font-bold text-gray-600 uppercase tracking-widest mb-4">System Status</p>
+                <div class="flex items-center gap-2 text-green-500 text-xs font-bold">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    SECURE ENCRYPTION ACTIVE
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Result & Actions -->
+        <div class="bg-black/40 flex flex-col p-8 lg:p-16 justify-center space-y-12">
+            <div class="panel-glass p-8 lg:p-12 rounded-[3rem]">
+                <label class="block text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-6 text-center">Generated Fingerprint</label>
+                
+                <div class="relative group">
+                    <textarea id="outputHash" readonly 
+                        class="w-full bg-transparent text-pink-500 font-mono text-xl lg:text-3xl h-48 resize-none outline-none text-center break-all leading-snug tracking-tighter" 
+                        placeholder="Waiting for input..."></textarea>
+                </div>
+
+                <div class="flex flex-col items-center mt-8">
+                    <button id="copyBtn" class="px-12 py-5 pro-bg text-white font-black rounded-full hover:scale-105 transition-all active:scale-[0.95] shadow-2xl shadow-pink-600/20 uppercase tracking-[0.2em] text-xs">
+                        Copy to Clipboard
+                    </button>
+                    <p id="status" class="mt-6 text-xs text-green-400 font-bold opacity-0 transition-opacity uppercase tracking-widest">Hash Copied Successfully</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="panel-glass p-6 rounded-3xl">
+                    <h4 class="text-xs font-black text-white uppercase mb-2">Immutable</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">One-way encryption ensures the source string remains hidden.</p>
+                </div>
+                <div class="panel-glass p-6 rounded-3xl">
+                    <h4 class="text-xs font-black text-white uppercase mb-2">Standard</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">Compatible with standard SHA-256 libraries and system backends.</p>
+                </div>
+                <div class="panel-glass p-6 rounded-3xl">
+                    <h4 class="text-xs font-black text-white uppercase mb-2">Instant</h4>
+                    <p class="text-[10px] text-gray-500 leading-relaxed">Calculated locally in your browser using the Web Crypto API.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('inputString');
+        const output = document.getElementById('outputHash');
+        const copyBtn = document.getElementById('copyBtn');
+        const status = document.getElementById('status');
+
+        async function generateHash() {
+            const text = input.value;
+            if (!text) {
+                output.value = "";
+                return;
+            }
+
+            try {
+                const msgUint8 = new TextEncoder().encode(text);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                output.value = hashHex;
+            } catch (err) {
+                console.error("Hashing failed:", err);
+            }
+        }
+
+        input.addEventListener('input', generateHash);
+
+        copyBtn.addEventListener('click', () => {
+            if (!output.value) return;
+            
+            const el = document.createElement('textarea');
+            el.value = output.value;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+
+            status.style.opacity = "1";
+            setTimeout(() => status.style.opacity = "0", 2000);
+        });
+    </script>
+</body>
+</html>

@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Journey</title>
+    <script>
+    (function() {
+        const themeFile = localStorage.getItem('__app_custom_theme_file');
+        if (themeFile) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = themeFile;
+            document.head.appendChild(link);
+        }
+    })();
+</script>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -116,7 +127,7 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #111;
         }
         
         ::-webkit-scrollbar-thumb {
@@ -214,6 +225,8 @@
     </div>
 </div>
 
+
+    <script src="premium.js"></script>
     <script src="anniversaries-section.js"></script>
     <script>
         const STORAGE_KEY_DATE = '__relationship_start_date';

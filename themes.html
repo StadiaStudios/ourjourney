@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey - Themes</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #111111; 
+            color: #f3f4f6;
+            min-height: 100vh; 
+        }
+        header {
+            background-color: rgba(34, 34, 34, 0.7);
+            border-bottom-color: #334155;
+        }
+        .theme-card { 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative; 
+            overflow: hidden; 
+            background-color: #222;
+            border: 2px solid transparent;
+        }
+        .theme-card:hover { 
+            transform: translateY(-3px); 
+            background-color: #2d3748;
+        }
+        .active-theme { 
+            border-color: #db2777 !important; 
+            background-color: #2d1a24 !important; 
+        }
+        .pro-badge { 
+            position: absolute; 
+            top: 12px; 
+            right: 12px; 
+            background: #db2777; 
+            color: white; 
+            padding: 2px 8px; 
+            border-radius: 20px; 
+            font-size: 10px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgb(122, 1, 116); 
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #da46ff; 
+        }
+    </style>
+</head>
+<body class="bg-[#111]">
+    <script src="premium-lock.js"></script>
+
+    <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-600 flex justify-between items-center">
+        <a href="settings.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
+                <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+            </svg>
+        </a>
+        <h1 class="text-2xl font-extrabold text-pink-700">Pro Themes</h1>
+        <div class="w-8"></div>
+    </header>
+
+    <div class="max-w-xl mx-auto pt-24 px-6 pb-12">
+        <div id="themes-container" class="grid grid-cols-1 gap-4"></div>
+        <div id="statusMsg" class="mt-8 text-center text-pink-400 font-medium opacity-0 transition-opacity">
+            Theme applied successfully!
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY_CUSTOM_CSS = '__app_custom_theme_file';
+        const STORAGE_KEY_PREMIUM = '__app_premium_unlocked';
+        const EXPIRY_KEY = '__app_premium_expiry';
+
+        const THEMES = [
+            { id: 'none', name: 'Default', desc: 'The Free original Dark/Light Mode', icon: '🌸', file: '', isPremium: false, colors: ['bg-[white]', 'bg-[black]'] },
+            { id: 'christmas', name: 'Christmas Spirit', desc: 'Red, Green, and Snowy vibes', icon: '🎄', file: 'pro-themes/christmastheme.css', isPremium: true, colors: ['bg-red-600', 'bg-green-700', 'bg-slate-100'] },
+            { id: 'purple', name: 'Royal Purple', desc: 'Elegant and deep purple tones', icon: '🔮', file: 'pro-themes/purpletheme.css', isPremium: true, colors: ['bg-purple-600', 'bg-indigo-700', 'bg-purple-200'] },
+            { id: 'microsoft', name: 'Modern Microsoft', desc: 'Clean, Corporate, and Professional', icon: '💻', file: 'pro-themes/microsofttheme.css', isPremium: true, colors: ['bg-[white]', 'bg-[black]', 'bg-[#444]'] },
+            { id: 'orange', name: 'Orange', desc: 'Sleek Orange Theme.', icon: '🍊', file: 'pro-themes/orange.css', isPremium: true, colors: ['bg-[orange]', 'bg-[#111]'] },
+            { id: 'Space', name: 'Space Theme', desc: 'Space Star Theme.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[purple]'] }
+        ];
+
+        function isPremiumActive() {
+            const isUnlocked = localStorage.getItem(STORAGE_KEY_PREMIUM) === "true";
+            const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || "0");
+            return isUnlocked && Date.now() < expiry;
+        }
+
+        function renderThemes() {
+            const container = document.getElementById('themes-container');
+            const currentFile = localStorage.getItem(STORAGE_KEY_CUSTOM_CSS) || '';
+
+            container.innerHTML = THEMES.map(theme => `
+                <div onclick="selectTheme('${theme.id}')" 
+                     id="theme-${theme.id}" 
+                     class="theme-card cursor-pointer p-5 rounded-2xl shadow-sm ${theme.file === currentFile ? 'active-theme' : ''}">
+                    ${theme.isPremium ? '<span class="pro-badge">Pro</span>' : ''}
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-100">${theme.name}</h3>
+                            <p class="text-sm text-gray-400">${theme.desc}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex gap-2">
+                        ${theme.colors.map(c => `<div class="w-5 h-5 rounded-full ${c} border border-white/10"></div>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectTheme(themeId) {
+            const theme = THEMES.find(t => t.id === themeId);
+            if (!theme) return;
+
+            // Premium Check - must be unlocked AND not expired
+            if (theme.isPremium && !isPremiumActive()) {
+                // Remove keys if they were expired
+                localStorage.removeItem(STORAGE_KEY_PREMIUM);
+                localStorage.removeItem(EXPIRY_KEY);
+                location.reload(); 
+                return;
+            }
+
+            if (theme.file) {
+                localStorage.setItem(STORAGE_KEY_CUSTOM_CSS, theme.file);
+            } else {
+                localStorage.removeItem(STORAGE_KEY_CUSTOM_CSS);
+            }
+
+            document.querySelectorAll('.theme-card').forEach(card => card.classList.remove('active-theme'));
+            const selectedCard = document.getElementById('theme-' + themeId);
+            if (selectedCard) selectedCard.classList.add('active-theme');
+
+            const msg = document.getElementById('statusMsg');
+            msg.style.opacity = '1';
+            setTimeout(() => msg.style.opacity = '0', 2000);
+        }
+
+        window.onload = renderThemes;
+    </script>
+</body>
+</html>

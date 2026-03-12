@@ -46,12 +46,12 @@ window.renderAnniversaries = function(startDate) {
     // Filter to show only the 3 closest upcoming ones
     const upcoming = milestones.slice(0, 3);
 
-    // Build the HTML
+    // Build the HTML using classes mapped to your custom CSS overrides
     let html = `
         <div class="text-left mt-4 animate-fade-in">
-            <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4 flex items-center">
+            <h3 class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 flex items-center">
                 <span class="mr-2">Upcoming Milestones</span>
-                <div class="flex-grow border-t border-gray-100 dark:border-gray-800"></div>
+                <div class="flex-grow border-t border-pink-200"></div>
             </h3>
             <div class="space-y-3">
     `;
@@ -62,16 +62,16 @@ window.renderAnniversaries = function(startDate) {
         const dateStr = ms.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
 
         html += `
-            <div class="milestone-card flex items-center justify-between p-4 bg-white border border-pink-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+            <div class="milestone-card flex items-center justify-between p-4 bg-white border border-pink-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center space-x-4">
                     <div class="text-2xl">${ms.icon}</div>
                     <div>
-                        <p class="text-sm font-bold text-gray-800 dark:text-gray-200">${ms.label}</p>
+                        <p class="text-sm font-bold text-gray-700">${ms.label}</p>
                         <p class="text-xs text-gray-500">${dateStr}</p>
                     </div>
                 </div>
                 <div class="text-right">
-                    <span class="text-xs font-bold px-2 py-1 bg-pink-100 text-pink-600 rounded-full dark:bg-pink-900/30 dark:text-pink-400">
+                    <span class="text-xs font-bold px-2 py-1 bg-pink-50 text-pink-600 rounded-full">
                         in ${diffDays} days
                     </span>
                 </div>

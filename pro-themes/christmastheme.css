@@ -1,0 +1,153 @@
+/* Christmas Winter Wonderland 2.0
+Deep Midnight/Pine Theme with Parallax Snowfall
+*/
+
+:root {
+--xmas-red: #cc231e;
+--xmas-green: #235e3d;
+--xmas-gold: #f1d592;
+--xmas-snow: #ffffff;
+--xmas-bg-dark: #0a1f1a;
+--glass-card: rgba(255, 255, 255, 0.1);
+--glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Base Body with Deep Forest Gradient */
+body {
+background: linear-gradient(135deg, #777777 0%, #c70000 50%, #635959 100%) !important;
+background-attachment: fixed !important;
+color: white !important;
+position: relative;
+overflow-x: hidden;
+min-height: 100vh;
+}
+
+/* Multi-layered Animated Snowfall
+Using pure CSS shadows to create hundreds of flakes without performance lag
+*/
+body::before, body::after {
+content: "";
+position: fixed;
+top: -1000px;
+left: 0;
+right: 0;
+bottom: 0;
+pointer-events: none;
+z-index: 1;
+}
+
+/* Small, fast flakes */
+body::before {
+background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+background-size: 100px 100px;
+animation: snowFall 20s linear infinite;
+opacity: 0.8;
+}
+
+/* Large, slow flakes */
+body::after {
+background-image: radial-gradient(circle, #fff 2px, transparent 2px);
+background-size: 250px 250px;
+animation: snowFall 35s linear infinite;
+opacity: 0.5;
+}
+
+@keyframes snowFall {
+0% { transform: translateY(0) translateX(0); }
+100% { transform: translateY(1000px) translateX(50px); }
+}
+
+/* Containers and Cards */
+.bg-white, header, .rounded-xl {
+background: rgba(255, 255, 255, 0.12) !important;
+backdrop-filter: blur(12px) !important;
+-webkit-backdrop-filter: blur(12px) !important;
+border: 1px solid var(--glass-border) !important;
+box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+color: white !important;
+}
+
+/* Navigation Overrides */
+header span, header a, .text-gray-600, .text-gray-800, .text-gray-700 {
+color: var(--xmas-gold) !important;
+font-weight: 600 !important;
+}
+
+/* Form Titles and Labels */
+h1, h2, h3, label, p {
+color: white !important;
+text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+/* Buttons: Candy Cane / Ornament Style */
+#setDateButton,
+#saveNames,
+button.bg-pink-600,
+button.bg-blue-600 {
+background: linear-gradient(to right, var(--xmas-red), #8e1619) !important;
+color: white !important;
+border: 2px solid var(--xmas-gold) !important;
+border-radius: 9999px !important;
+transition: all 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 1px;
+box-shadow: 0 4px 15px rgba(204, 35, 30, 0.4) !important;
+}
+
+#setDateButton:hover, #saveNames:hover {
+transform: scale(1.05);
+box-shadow: 0 6px 20px rgba(241, 213, 146, 0.3) !important;
+}
+
+/* Inputs */
+input[type="text"], input[type="date"] {
+background: rgba(255, 255, 255, 0.05) !important;
+border: 1px solid var(--glass-border) !important;
+color: white !important;
+border-radius: 12px !important;
+}
+
+input::placeholder {
+color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Festive Icons & Details */
+#durationList li::before {
+content: '❄️';
+margin-right: 12px;
+color: var(--xmas-gold);
+}
+
+.duration-value, .text-pink-600 {
+color: var(--xmas-gold) !important;
+font-weight: bold !important;
+}
+
+/* Toggle Switch (Settings) */
+.peer-checked:bg-pink-600:checked + div {
+background-color: var(--xmas-green) !important;
+}
+
+/* Photo Container */
+#photo-container {
+border: 3px dashed var(--glass-border) !important;
+background: rgba(255, 255, 255, 0.05) !important;
+overflow: hidden;
+}
+
+/* Message Toasts */
+.fixed.bottom-4 {
+background: var(--xmas-green) !important;
+color: white !important;
+border: 1px solid var(--xmas-gold) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track {
+background: var(--xmas-bg-dark) !important;
+}
+::-webkit-scrollbar-thumb {
+background: var(--xmas-green) !important;
+border: 2px solid var(--xmas-bg-dark) !important;
+border-radius: 10px;
+}
