@@ -17,6 +17,8 @@
         header {
             background-color: rgba(34, 34, 34, 0.7);
             border-bottom-color: #334155;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
         .theme-card { 
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
@@ -46,6 +48,28 @@
             text-transform: uppercase; 
         }
 
+        .search-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 4px 12px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #334155;
+            flex-grow: 1;
+            margin: 0 16px;
+            max-width: 400px;
+        }
+
+        .search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 8px;
+            width: 100%;
+            font-size: 14px;
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -73,12 +97,28 @@
                 <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
             </svg>
         </a>
-        <h1 class="text-2xl font-extrabold text-pink-700">Pro Themes</h1>
-        <div class="w-8"></div>
+        
+        <div class="search-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input 
+                type="text" 
+                id="themeSearch" 
+                placeholder="Search themes..." 
+                class="search-input"
+                oninput="handleSearch(this.value)"
+            >
+        </div>
+
+        <div class="hidden sm:block">
+            <h1 class="text-xl font-extrabold text-[white]">PRO Theme Library</h1>
+        </div>
     </header>
 
     <div class="max-w-xl mx-auto pt-24 px-6 pb-12">
         <div id="themes-container" class="grid grid-cols-1 gap-4"></div>
+        <div id="no-results" class="hidden text-center py-20 text-gray-500">
+            <p class="text-lg">No themes matching your search.</p>
+        </div>
         <div id="statusMsg" class="mt-8 text-center text-pink-400 font-medium opacity-0 transition-opacity">
             Theme applied successfully!
         </div>
@@ -93,10 +133,19 @@
             { id: 'none', name: 'Default', desc: 'The Free original Dark/Light Mode', icon: '🌸', file: '', isPremium: false, colors: ['bg-[white]', 'bg-[black]'] },
             { id: 'christmas', name: 'Christmas Spirit', desc: 'Red, Green, and Snowy vibes', icon: '🎄', file: 'pro-themes/christmastheme.css', isPremium: true, colors: ['bg-red-600', 'bg-green-700', 'bg-slate-100'] },
             { id: 'purple', name: 'Royal Purple', desc: 'Elegant and deep purple tones', icon: '🔮', file: 'pro-themes/purpletheme.css', isPremium: true, colors: ['bg-purple-600', 'bg-indigo-700', 'bg-purple-200'] },
-            { id: 'microsoft', name: 'Modern Microsoft', desc: 'Clean, Corporate, and Professional', icon: '💻', file: 'pro-themes/microsofttheme.css', isPremium: true, colors: ['bg-[white]', 'bg-[black]', 'bg-[#444]'] },
-            { id: 'orange', name: 'Orange', desc: 'Sleek Orange Theme.', icon: '🍊', file: 'pro-themes/orange.css', isPremium: true, colors: ['bg-[orange]', 'bg-[#111]'] },
-            { id: 'Space', name: 'Space Theme', desc: 'Space Star Theme.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[purple]'] }
+            { id: 'ticroloft', name: 'Modern Ticroloft', desc: 'Clean, Corporate, and Professional', icon: '💻', file: 'pro-themes/microsofttheme.css', isPremium: true, colors: ['bg-[white]', 'bg-[black]', 'bg-[#444]'] },
+            { id: 'orange', name: 'Pro Orange', desc: 'Sleek Orange Theme.', icon: '🍊', file: 'pro-themes/orange.css', isPremium: true, colors: ['bg-[orange]', 'bg-[#111]'] },
+            { id: 'darkspace', name: 'Dark Space', desc: 'Dark Space Theme.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[purple]'] },
+            { id: 'moogledark', name: 'Moogle Dark', desc: 'Moogle Dark Mode Theme.', icon: '⭐', file: 'pro-themes/google-theme.css', isPremium: true, colors: ['bg-[#8ab4f8]', 'bg-[#111111]'] },
+            { id: 'acebukdark', name: 'AceBuk Light', desc: 'AceBuk Classic Light Mode Theme.', icon: '⭐', file: 'pro-themes/facebooklight.css', isPremium: true, colors: ['bg-[blue]', 'bg-[white]'] },
+            { id: 'cocdark', name: 'COC Theme', desc: 'COC Dark Mode Theme.', icon: '⭐', file: 'pro-themes/coc.css', isPremium: true, colors: ['bg-[#4db848]', 'bg-[#f1c40f]', 'bg-[#121212]'] },
+            { id: 'breakcraft', name: 'Breakcraft Theme', desc: 'A Dark Breakcraft theme.', icon: '⭐', file: 'pro-themes/breakcraft.css', isPremium: true, colors: ['bg-[#ffb000]', 'bg-[#da46ff]', 'bg-[#333]'] },
+            { id: 'scissor101', name: 'Scissor101 Theme', desc: 'A Dark Scissor101 theme.', icon: '⭐', file: 'pro-themes/scissor101.css', isPremium: true, colors: ['bg-[#f4e4bc]', 'bg-[#2a5298]', 'bg-[white]'] },
+            { id: 'redgaze', name: 'Red Gaze', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/redgaze.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] },
+            { id: 'tethesda', name: 'Tethesda Dark Theme', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/tethesda.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] }
         ];
+
+        let currentSearchQuery = "";
 
         function isPremiumActive() {
             const isUnlocked = localStorage.getItem(STORAGE_KEY_PREMIUM) === "true";
@@ -106,9 +155,23 @@
 
         function renderThemes() {
             const container = document.getElementById('themes-container');
+            const noResults = document.getElementById('no-results');
             const currentFile = localStorage.getItem(STORAGE_KEY_CUSTOM_CSS) || '';
 
-            container.innerHTML = THEMES.map(theme => `
+            // Filter themes based on search query
+            const filteredThemes = THEMES.filter(theme => 
+                theme.name.toLowerCase().includes(currentSearchQuery.toLowerCase()) || 
+                theme.desc.toLowerCase().includes(currentSearchQuery.toLowerCase())
+            );
+
+            if (filteredThemes.length === 0) {
+                container.innerHTML = "";
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            container.innerHTML = filteredThemes.map(theme => `
                 <div onclick="selectTheme('${theme.id}')" 
                      id="theme-${theme.id}" 
                      class="theme-card cursor-pointer p-5 rounded-2xl shadow-sm ${theme.file === currentFile ? 'active-theme' : ''}">
@@ -124,6 +187,11 @@
                     </div>
                 </div>
             `).join('');
+        }
+
+        function handleSearch(query) {
+            currentSearchQuery = query;
+            renderThemes();
         }
 
         function selectTheme(themeId) {

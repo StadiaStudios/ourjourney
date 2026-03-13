@@ -102,15 +102,18 @@ button, input, textarea, select {
         .ai-button-container {
   position: relative;
   display: inline-block;
-  padding: 2px; /* This creates the thin border gap */
+  padding: 2px;
   border-radius: 12px;
-  background: #222; /* Fallback */
+  background: #e5e7eb;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
   text-decoration: none;
 }
 
-/* 2. The Animated Gradient (The "Spin") */
+body.dark .ai-button-container {
+  background: #222;
+}
+
 .ai-button-container::before {
   content: '';
   position: absolute;
@@ -118,22 +121,20 @@ button, input, textarea, select {
   left: -50%;
   width: 200%;
   height: 200%;
-  /* Google AI colors: Blue, Purple, Red, Gold */
   background: conic-gradient(
     #4285f4, #9b72cb, #d96570, #f4af44, #4285f4
   );
   animation: rotate-gradient 4s linear infinite;
-  opacity: 0; /* Hidden until hover */
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-/* 3. The Actual Button Surface */
 .ai-button {
   position: relative;
   z-index: 1;
   width: 100%;
-  background: #111; /* Solid center to cover the middle of the gradient */
-  color: white;
+  background: #ffffff;
+  color: #374151;
   padding: 12px 24px;
   border-radius: 10px;
   border: none;
@@ -142,22 +143,29 @@ button, input, textarea, select {
   display: block;
 }
 
-/* 4. Hover States */
+body.dark .ai-button {
+  background: #111;
+  color: white;
+}
+
 .ai-button-container:hover {
   transform: scale(1.02);
   box-shadow: 0 0 20px rgba(155, 114, 203, 0.4);
 }
 
 .ai-button-container:hover::before {
-  opacity: 1; /* Reveals the spinning gradient border */
+  opacity: 1;
 }
 
 .ai-button:hover {
-  color: gold; /* Matches your original design intent */
+  color: #ec4899;
   transition: color 0.3s ease;
 }
 
-/* 5. The Animation Keyframes */
+body.dark .ai-button:hover {
+  color: gold;
+}
+
 @keyframes rotate-gradient {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -166,13 +174,13 @@ button, input, textarea, select {
 </head>
 <body>
     
-    <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-100 flex justify-between items-center">
+    <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-400 flex justify-between items-center">
         <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
                 <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
             </svg>
         </a>
-        <h1 class="text-2xl font-extrabold text-pink-700">Settings</h1>
+<h1 class="text-2xl font-extrabold text-pink-700" id="mainTitle">SETTINGS</h1>
         <div class="w-8"></div>
     </header>
 
@@ -194,12 +202,20 @@ button, input, textarea, select {
                     </label>
                 </div><br>
                 <a class="ai-button-container" href="themes.html"><button class="ai-button">
-                        (NEW!) PRO THEMES
+                        THEMES ⭐
+                    </button>
+                    </a>
+                    <a class="ai-button-container" href="prosettings.html"><button class="ai-button">
+                        PRO FEATURES ⭐
+                    </button>
+                    </a>
+                    <a class="ai-button-container" href="themes.html"><button class="ai-button">
+                        DISCORD 🔗
                     </button>
                     </a>
                 <a href="tos.html" class="ai-button-container">
   <button class="ai-button">
-    <span class="button-text">TERMS OF SERVICE</span>
+    <span class="button-text">TERMS OF SERVICE 🔗</span>
   </button>
 </a>
             </section>
@@ -236,7 +252,7 @@ button, input, textarea, select {
 
             <div class="pt-6 text-center border-t border-pink-300">
                 <p class="text-xs text-gray-400 font-semibold tracking-widest uppercase">
-                    Version 1.4.2
+                    Version 1.5.3
                 </p>
             </div>
 

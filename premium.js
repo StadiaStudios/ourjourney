@@ -1,59 +1,79 @@
 /**
- * premium.js - Pro purchase banner with Expired State detection
+ * premium.js - Pro purchase banner with Settings suppression
  */
 (function() {
     const STORAGE_KEY = '__app_premium_unlocked';
     const EXPIRY_KEY = '__app_premium_expiry';
+    const HIDE_BANNER_KEY = '__app_hide_pro_banner';
     
     // Check current status
     const isUnlocked = localStorage.getItem(STORAGE_KEY) === "true";
     const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || "0");
+    const isBannerHiddenByChoice = localStorage.getItem(HIDE_BANNER_KEY) === "true";
     const now = Date.now();
 
-    // If currently active and valid, don't show the banner at all
+    // 1. Don't show if Pro is currently active
     if (isUnlocked && now < expiry) {
-        console.log("Pro active: Banner suppressed.");
         return; 
     }
 
+    // 2. Don't show if user has toggled "Hide Banner" in Pro Settings
+    if (isBannerHiddenByChoice) {
+        return;
+    }
+
     function injectPremiumBanner() {
-        // Detect if we are in the "Expired" state
-        // It's expired if we aren't unlocked but an expiry date exists in the past
         const isExpired = !isUnlocked && expiry > 0 && now >= expiry;
-        
         const PURCHASE_URL = "https://google.com";
         const banner = document.createElement('div');
         banner.id = 'premium-banner';
         
-        // Use orange theme for expired state, pink/purple for default
         const bannerBg = isExpired 
             ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)' 
             : 'linear-gradient(135deg, #be185d 0%, #7a0174 100%)';
-        
-        const btnColor = isExpired ? '#d97706' : '#be185d';
 
         const style = document.createElement('style');
         style.textContent = `
             #premium-banner {
-                position: fixed; bottom: 0; left: 0; right: 0;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
                 background: ${bannerBg};
-                color: white; padding: 16px 20px; display: flex;
-                align-items: center; justify-content: space-between;
-                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15); z-index: 1000;
-                font-family: 'Inter', sans-serif; border-top: 1px solid rgba(255, 255, 255, 0.2);
-                transition: all 0.3s ease;
+                color: white;
+                padding: 16px;
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                font-family: 'Inter', sans-serif;
+                animation: slideUp 0.5s ease-out;
             }
-            .premium-title { font-weight: 800; display: flex; align-items: center; gap: 8px; }
-            .premium-subtitle { font-size: 0.8rem; opacity: 0.9; }
-            .purchase-btn-link { 
-                background: white; color: ${btnColor}; padding: 10px 18px; 
-                border-radius: 99px; font-weight: 700; text-decoration: none; font-size: 0.9rem;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            @keyframes slideUp {
+                from { transform: translateY(100px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
             }
+            .premium-content { flex: 1; }
+            .premium-title { font-weight: 800; font-size: 16px; display: flex; align-items: center; gap: 6px; }
+            .premium-subtitle { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+            .purchase-btn-link {
+                background: white;
+                color: #be185d;
+                padding: 8px 16px;
+                border-radius: 12px;
+                font-weight: 700;
+                font-size: 14px;
+                text-decoration: none;
+                white-space: nowrap;
+                margin-left: 12px;
+                transition: transform 0.2s;
+            }
+            .purchase-btn-link:active { transform: scale(0.95); }
         `;
         document.head.appendChild(style);
 
-        // Update text based on state
         const titleText = isExpired ? "OurJourney Pro Expired" : "OurJourney Pro";
         const subtitleText = isExpired ? "Please reactivate your session" : "Unlock Custom App Themes";
         const buttonText = isExpired ? "Reactivate" : "Get Pro • $4.99";
@@ -70,7 +90,6 @@
         `;
         document.body.appendChild(banner);
 
-        // If expired, the button just triggers a reload to show the lock screen again
         if (isExpired) {
             document.getElementById('premium-banner-btn').onclick = (e) => {
                 e.preventDefault();
@@ -79,9 +98,9 @@
         }
     }
 
-    if (document.readyState === 'complete') {
-        injectPremiumBanner();
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', injectPremiumBanner);
     } else {
-        window.addEventListener('load', injectPremiumBanner);
+        injectPremiumBanner();
     }
 })();
