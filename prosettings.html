@@ -7,18 +7,15 @@
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <script>
-        // Verification & Theme Application
         (function() {
             const isUnlocked = localStorage.getItem('__app_premium_unlocked') === "true";
             const expiry = parseInt(localStorage.getItem('__app_premium_expiry') || "0");
             const now = Date.now();
             
-            // Security check: If not pro or session expired, kick back to themes
             if (!isUnlocked || now >= expiry) {
                 window.location.href = 'themes.html';
             }
 
-            // Apply custom theme if active
             const themeFile = localStorage.getItem('__app_custom_theme_file');
             if (themeFile) {
                 const link = document.createElement('link');
@@ -30,7 +27,6 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Base styles (Light Mode) */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
@@ -55,7 +51,6 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        /* Dark Mode Overrides */
         body.dark {
             background-color: #111111;
             color: #f3f4f6;
@@ -100,7 +95,6 @@
 
         <br><br><br>
 
-        <!-- Pro Features Section -->
         <div class="glass-panel p-6 rounded-3xl space-y-6">
             <div class="flex items-center justify-between">
                 <div class="pr-4">
@@ -131,7 +125,6 @@
         </p>
     </div>
 
-    <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-10 opacity-0 pointer-events-none transition-all duration-300 transform translate-y-4 bg-white text-black px-6 py-3 rounded-full font-bold shadow-2xl flex items-center gap-2">
         <span id="toast-msg"></span>
     </div>
@@ -143,7 +136,6 @@
         const toast = document.getElementById('toast');
         const toastMsg = document.getElementById('toast-msg');
 
-        // Apply Global Theme Logic
         function applyGlobalTheme() {
             const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
             if (savedTheme === 'dark') {
@@ -153,7 +145,6 @@
             }
         }
 
-        // Initial State
         applyGlobalTheme();
         const isHidden = localStorage.getItem(STORAGE_KEY_HIDE_BANNER) === 'true';
         toggle.checked = isHidden;

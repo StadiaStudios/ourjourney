@@ -1,8 +1,3 @@
-/**
- * Anniversary Section Component
- * Handles the calculation and display of upcoming relationship milestones.
- */
-
 window.renderAnniversaries = function(startDate) {
     const container = document.getElementById('anniversaryContainer');
     if (!container) return;
@@ -10,7 +5,6 @@ window.renderAnniversaries = function(startDate) {
     const now = new Date();
     const milestones = [];
 
-    // 1. Yearly Anniversaries (Next 2)
     for (let i = 1; i <= 10; i++) {
         const date = new Date(startDate);
         date.setFullYear(startDate.getFullYear() + i);
@@ -20,7 +14,6 @@ window.renderAnniversaries = function(startDate) {
         }
     }
 
-    // 2. Multi-Month Milestones (Every 5 Months)
     for (let i = 5; i <= 120; i += 5) {
         const date = new Date(startDate);
         date.setMonth(startDate.getMonth() + i);
@@ -30,7 +23,6 @@ window.renderAnniversaries = function(startDate) {
         }
     }
 
-    // 3. Day Milestones (100, 200, 500, 1000, etc.)
     const dayTargets = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000];
     for (let target of dayTargets) {
         const date = new Date(startDate.getTime() + (target * 24 * 60 * 60 * 1000));
@@ -40,13 +32,10 @@ window.renderAnniversaries = function(startDate) {
         }
     }
 
-    // Sort milestones by date
     milestones.sort((a, b) => a.date - b.date);
 
-    // Filter to show only the 3 closest upcoming ones
     const upcoming = milestones.slice(0, 3);
 
-    // Build the HTML using classes mapped to your custom CSS overrides
     let html = `
         <div class="text-left mt-4 animate-fade-in">
             <h3 class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 flex items-center">

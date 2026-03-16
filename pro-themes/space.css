@@ -1,7 +1,3 @@
-/* PlayStation 5 Midnight Pro Theme
-   Dark Mode Only - High Performance UI
-*/
-
 :root {
     --ps-blue: #0070d1;
     --ps-dark-bg: #0a0a0c;
@@ -20,7 +16,6 @@ body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
-/* Enhanced PS5 Particle Background Effect */
 body::before {
     content: "";
     position: fixed;
@@ -36,7 +31,6 @@ body::before {
     pointer-events: none;
 }
 
-/* Dynamic Floating Particles - Fixed "Stuck" Issue */
 body::after {
     content: "";
     position: fixed;
@@ -63,7 +57,6 @@ body::after {
     to { transform: translate(200px, 200px) rotate(10deg); }
 }
 
-/* Header - Floating Glass Panel */
 header {
     background-color: rgba(21, 23, 26, 0.7) !important;
     border-bottom: 1px solid var(--ps-border) !important;
@@ -81,7 +74,6 @@ header svg {
     color: var(--ps-accent-blue) !important;
 }
 
-/* Card Containers - PS5 Dark UI Style */
 #app, .bg-white, .bg-pink-50 {
     background-color: var(--ps-card-bg) !important;
     border: 1px solid var(--ps-border) !important;
@@ -89,7 +81,6 @@ header svg {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Typography Overrides */
 .text-pink-700, .text-pink-600, h1, h2, h3 {
     color: white !important;
 }
@@ -104,7 +95,6 @@ header svg {
     text-shadow: 0 0 15px rgba(68, 166, 255, 0.3);
 }
 
-/* Bullet Points */
 #durationList li::before {
     content: '○' !important;
     color: var(--ps-accent-blue);
@@ -112,7 +102,6 @@ header svg {
     margin-right: 12px;
 }
 
-/* Interactive Buttons */
 button, #setDateButton, #saveNames {
     background: linear-gradient(135deg, var(--ps-blue), var(--ps-dark-blue)) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -129,7 +118,6 @@ button:hover {
     background: var(--ps-accent-blue) !important;
 }
 
-/* Input Styles */
 input[type="date"], input[type="text"] {
     background-color: rgba(255, 255, 255, 0.05) !important;
     border: 1px solid var(--ps-border) !important;
@@ -144,14 +132,12 @@ input:focus {
     outline: none;
 }
 
-/* Milestone Cards */
 .milestone-card {
     background: rgba(255, 255, 255, 0.03) !important;
     border-left: 4px solid var(--ps-blue) !important;
     border-radius: 12px !important;
 }
 
-/* Photo Display */
 #photoContainer {
     border-radius: 20px !important;
     border: 2px solid var(--ps-border) !important;
@@ -159,7 +145,6 @@ input:focus {
     overflow: hidden;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -173,7 +158,6 @@ input:focus {
     background: var(--ps-dark-bg) !important;
 }
 
-/* Force hide light-mode elements */
 #darkModeToggle, label[for="darkModeToggle"], .dark-mode-section {
     display: none !important;
 }

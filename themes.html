@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Theme initialization logic
         (function() {
             const savedTheme = localStorage.getItem('__app_theme') || 'light';
             if (savedTheme === 'light') {
@@ -79,6 +78,25 @@
             font-size: 14px;
         }
 
+        .category-header {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            margin: 2rem 0 1rem 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .category-header::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, #334155, transparent);
+        }
+
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -96,7 +114,6 @@
             background: #da46ff; 
         }
 
-        /* Light Mode Overrides */
         .light-mode body {
             background-color: #f8fafc;
             color: #1e293b;
@@ -132,6 +149,9 @@
             background-color: #fff1f2 !important;
             border-color: #db2777 !important;
         }
+        .light-mode .category-header {
+            color: #64748b;
+        }
     </style>
 </head>
 <body class="bg-[#111]">
@@ -161,7 +181,7 @@
     </header>
 
     <div class="max-w-xl mx-auto pt-24 px-6 pb-12">
-        <div id="themes-container" class="grid grid-cols-1 gap-4"></div>
+        <div id="themes-container"></div>
         <div id="no-results" class="hidden text-center py-20 text-gray-500">
             <p class="text-lg">No themes matching your search.</p>
         </div>
@@ -176,21 +196,34 @@
         const STORAGE_KEY_THEME = '__app_theme';
         const EXPIRY_KEY = '__app_premium_expiry';
 
+        const CAT_DARK = "Dark Themes";
+        const CAT_LIGHT = "Light Themes";
+        const CAT_SEAS = "Seasonal Themes";
+        const CAT_GAME = "Game Themes";
+        const CAT_COMPANY = "Company Themes";
+
         const THEMES = [
-            { id: 'none', name: 'Default', desc: 'The Free original Dark/Light Mode', icon: '🌸', file: '', isPremium: false, colors: ['bg-[white]', 'bg-[black]'] },
-            { id: 'christmas', name: 'Christmas Spirit', desc: 'Red, Green, and Snowy vibes', icon: '🎄', file: 'pro-themes/christmastheme.css', isPremium: true, colors: ['bg-red-600', 'bg-green-700', 'bg-slate-100'] },
-            { id: 'purple', name: 'Royal Purple', desc: 'Elegant and deep purple tones', icon: '🔮', file: 'pro-themes/purpletheme.css', isPremium: true, colors: ['bg-purple-600', 'bg-indigo-700', 'bg-purple-200'] },
-            { id: 'pink-theme', name: 'Pink Theme', desc: 'A Light Pink Girlfriend theme.', icon: '⭐', file: 'pro-themes/pink-theme.css', isPremium: true, colors: ['bg-[pink]', 'bg-[white]'] },
-            { id: 'ticroloft', name: 'Modern Ticroloft', desc: 'Clean, Corporate, and Professional', icon: '💻', file: 'pro-themes/microsofttheme.css', isPremium: true, colors: ['bg-[white]', 'bg-[black]', 'bg-[#444]'] },
-            { id: 'orange', name: 'Pro Orange', desc: 'Sleek Orange Theme.', icon: '🍊', file: 'pro-themes/orange.css', isPremium: true, colors: ['bg-[orange]', 'bg-[#111]'] },
-            { id: 'darkspace', name: 'Dark Space', desc: 'Dark Space Theme.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[black]'] },
-            { id: 'moogledark', name: 'Moogle Dark', desc: 'Moogle Dark Mode Theme.', icon: '⭐', file: 'pro-themes/google-theme.css', isPremium: true, colors: ['bg-[#8ab4f8]', 'bg-[#111111]'] },
-            { id: 'acebukdark', name: 'AceBuk Light', desc: 'AceBuk Classic Light Mode Theme.', icon: '⭐', file: 'pro-themes/facebooklight.css', isPremium: true, colors: ['bg-[blue]', 'bg-[white]'] },
-            { id: 'cocdark', name: 'COC Theme', desc: 'COC Dark Mode Theme.', icon: '⭐', file: 'pro-themes/coc.css', isPremium: true, colors: ['bg-[#4db848]', 'bg-[#f1c40f]', 'bg-[#121212]'] },
-            { id: 'breakcraft', name: 'Breakcraft Theme', desc: 'A Dark Breakcraft theme.', icon: '⭐', file: 'pro-themes/breakcraft.css', isPremium: true, colors: ['bg-[#ffb000]', 'bg-[#da46ff]', 'bg-[#333]'] },
-            { id: 'scissor101', name: 'Scissor101 Theme', desc: 'A Dark Scissor101 theme.', icon: '⭐', file: 'pro-themes/scissor101.css', isPremium: true, colors: ['bg-[#f4e4bc]', 'bg-[#2a5298]', 'bg-[white]'] },
-            { id: 'redgaze', name: 'Red Gaze', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/redtheme.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] },
-            { id: 'tethesda', name: 'Tethesda Dark Theme', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/tethesda.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] }
+            { id: 'none', category: CAT_DARK, name: 'Default', desc: 'The Free original Dark Mode', icon: '🌸', file: '', isPremium: false, colors: ['bg-[white]', 'bg-[black]'] },
+            { id: 'darkspace', category: CAT_DARK, name: 'Dark Space', desc: 'Deep space aesthetic with subtle stars.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[black]'] },
+            { id: 'purple', category: CAT_DARK, name: 'Royal Purple', desc: 'Elegant and deep purple tones', icon: '🔮', file: 'pro-themes/purpletheme.css', isPremium: true, colors: ['bg-purple-600', 'bg-indigo-700', 'bg-purple-200'] },
+            { id: 'redgaze', category: CAT_DARK, name: 'Red Gaze', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/redtheme.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] },
+            
+            { id: 'moogledark', category: CAT_COMPANY, name: 'Moogle Dark', desc: 'Modern search-inspired dark mode.', icon: '⭐', file: 'pro-themes/google-theme.css', isPremium: true, colors: ['bg-[#8ab4f8]', 'bg-[#111111]'] },
+            { id: 'ticroloft', category: CAT_COMPANY, name: 'Modern Ticroloft', desc: 'Clean, Corporate, and Professional', icon: '💻', file: 'pro-themes/microsofttheme.css', isPremium: true, colors: ['bg-[white]', 'bg-[black]', 'bg-[#444]'] },
+            { id: 'acebukdark', category: CAT_COMPANY, name: 'AceBuk Light', desc: 'Classic social-style light mode.', icon: '⭐', file: 'pro-themes/facebooklight.css', isPremium: true, colors: ['bg-[blue]', 'bg-[white]'] },
+            { id: 'ios-liquid', category: CAT_COMPANY, name: 'IOS Liquid', desc: 'light/dark mode IOS Liquid Theme.', icon: '⭐', file: 'pro-themes/ios-liquid.css', isPremium: true, colors: ['bg-[blue]', 'bg-[dark]', 'bg-[white]'] },
+
+            { id: 'pink-theme', category: CAT_LIGHT, name: 'Pink Theme', desc: 'A soft pink and white theme.', icon: '⭐', file: 'pro-themes/pink-theme.css', isPremium: true, colors: ['bg-[pink]', 'bg-[white]'] },
+            { id: 'barbie-pink', category: CAT_LIGHT, name: 'Barbie Pink', desc: 'Vibrant and iconic pink.', icon: '⭐', file: 'pro-themes/barbie-pink.css', isPremium: true, colors: ['bg-[pink]', 'bg-[dark]'] },
+            
+            { id: 'christmas', category: CAT_SEAS, name: 'Christmas Spirit', desc: 'Holiday vibes for your app.', icon: '🎄', file: 'pro-themes/christmastheme.css', isPremium: true, colors: ['bg-red-600', 'bg-green-700', 'bg-slate-100'] },
+            { id: 'Halloween', category: CAT_SEAS, name: 'Halloween', desc: 'Holiday vibes for your app.', icon: '🎄', file: 'pro-themes/halloween.css', isPremium: true, colors: ['bg-orange-600', 'bg-[white]', 'bg-[black]'] },
+
+            { id: 'cocdark', category: CAT_GAME, name: 'COC Theme', desc: 'Inspired by the village strategy classic.', icon: '⭐', file: 'pro-themes/coc.css', isPremium: true, colors: ['bg-[#4db848]', 'bg-[#f1c40f]', 'bg-[#121212]'] },
+            { id: 'breakcraft', category: CAT_GAME, name: 'Breakcraft', desc: 'A blocky, adventurous dark theme.', icon: '⭐', file: 'pro-themes/breakcraft.css', isPremium: true, colors: ['bg-[#ffb000]', 'bg-[#da46ff]', 'bg-[#333]'] },
+            { id: 'exbox', category: CAT_GAME, name: 'ExBox Dark', desc: 'Sleek green and black console vibes.', icon: '⭐', file: 'pro-themes/exbox.css', isPremium: true, colors: ['bg-[dark]', 'bg-[green]', 'bg-[#222]'] },
+            { id: 'ts4', category: CAT_GAME, name: 'TS4 Dark', desc: 'Simulated life in a dark palette.', icon: '⭐', file: 'pro-themes/ts4.css', isPremium: true, colors: ['bg-[blue]', 'bg-[purple]', 'bg-[#222]', 'bg-[white]'] },
+            { id: 'tethesda', category: CAT_GAME, name: 'Tethesda', desc: 'A tribute to RPG aesthetics.', icon: '⭐', file: 'pro-themes/tethesda.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] }
         ];
 
         let currentSearchQuery = "";
@@ -206,7 +239,6 @@
             const noResults = document.getElementById('no-results');
             const currentFile = localStorage.getItem(STORAGE_KEY_CUSTOM_CSS) || '';
 
-            // Filter themes based on search query
             const filteredThemes = THEMES.filter(theme => 
                 theme.name.toLowerCase().includes(currentSearchQuery.toLowerCase()) || 
                 theme.desc.toLowerCase().includes(currentSearchQuery.toLowerCase())
@@ -219,22 +251,36 @@
             }
 
             noResults.classList.add('hidden');
-            container.innerHTML = filteredThemes.map(theme => `
-                <div onclick="selectTheme('${theme.id}')" 
-                     id="theme-${theme.id}" 
-                     class="theme-card cursor-pointer p-5 rounded-2xl shadow-sm ${theme.file === currentFile ? 'active-theme' : ''}">
-                    ${theme.isPremium ? '<span class="pro-badge">Pro</span>' : ''}
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-100">${theme.name}</h3>
-                            <p class="text-sm text-gray-400">${theme.desc}</p>
+            
+            const categories = [CAT_DARK, CAT_LIGHT, CAT_SEAS, CAT_COMPANY, CAT_GAME];
+            let html = "";
+
+            categories.forEach(cat => {
+                const catThemes = filteredThemes.filter(t => t.category === cat);
+                if (catThemes.length > 0) {
+                    html += `<div class="category-header">${cat}</div>`;
+                    html += `<div class="grid grid-cols-1 gap-4">`;
+                    html += catThemes.map(theme => `
+                        <div onclick="selectTheme('${theme.id}')" 
+                             id="theme-${theme.id}" 
+                             class="theme-card cursor-pointer p-5 rounded-2xl shadow-sm ${theme.file === currentFile ? 'active-theme' : ''}">
+                            ${theme.isPremium ? '<span class="pro-badge">Pro</span>' : ''}
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-lg font-bold text-gray-100">${theme.name}</h3>
+                                    <p class="text-sm text-gray-400">${theme.desc}</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex gap-2">
+                                ${theme.colors.map(c => `<div class="w-5 h-5 rounded-full ${c} border border-white/10"></div>`).join('')}
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-4 flex gap-2">
-                        ${theme.colors.map(c => `<div class="w-5 h-5 rounded-full ${c} border border-white/10"></div>`).join('')}
-                    </div>
-                </div>
-            `).join('');
+                    `).join('');
+                    html += `</div>`;
+                }
+            });
+
+            container.innerHTML = html;
         }
 
         function handleSearch(query) {
@@ -246,9 +292,7 @@
             const theme = THEMES.find(t => t.id === themeId);
             if (!theme) return;
 
-            // Premium Check - must be unlocked AND not expired
             if (theme.isPremium && !isPremiumActive()) {
-                // Remove keys if they were expired
                 localStorage.removeItem(STORAGE_KEY_PREMIUM);
                 localStorage.removeItem(EXPIRY_KEY);
                 location.reload(); 

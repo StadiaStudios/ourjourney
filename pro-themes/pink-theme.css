@@ -1,4 +1,3 @@
-
 :root {
 --pink-light: #ffe4e6;
 --pink-medium: #fb7185;
@@ -40,10 +39,9 @@ background-color: rgba(255, 108, 169, 0.788) !important;
 backdrop-filter: blur(20px) !important;
 -webkit-backdrop-filter: blur(20px) !important;
 border-bottom: 1px solid var(--pink-border) !important;
-border-top: 1px solid var(--pink-border) !important; / For bottom nav */
+border-top: 1px solid var(--pink-border) !important;
 }
 
-/* Typography Colors */
 h1, h2, h3, h4, span, p, label {
 color: var(--text-main) !important;
 }
@@ -52,7 +50,6 @@ color: var(--text-main) !important;
 color: var(--text-muted) !important;
 }
 
-/* Buttons - Sleek Pink Style */
 button,
 .btn,
 .bg-pink-600,
@@ -76,7 +73,6 @@ button:active {
 transform: translateY(0px) !important;
 }
 
-/* Inputs & Forms */
 input, select, textarea {
 background-color: rgba(255, 255, 255, 0.7) !important;
 border: 1.5px solid var(--pink-border) !important;
@@ -89,7 +85,6 @@ border-color: var(--pink-medium) !important;
 ring: 2px var(--pink-light) !important;
 }
 
-/* Navigation Icons/Links */
 a, .nav-link {
 color: var(--text-muted) !important;
 }
@@ -98,7 +93,6 @@ color: var(--text-muted) !important;
 color: var(--pink-dark) !important;
 }
 
-/* Special Elements for Pro Settings / Themes */
 .theme-card {
 background: rgba(255, 255, 255, 0.5) !important;
 border: 2px solid transparent !important;

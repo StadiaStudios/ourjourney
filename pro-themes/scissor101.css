@@ -1,5 +1,3 @@
-/* Wizard101 Magical Light Theme */
-
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Metamorphous&display=swap');
 
 :root {
@@ -11,7 +9,6 @@
 --wiz-text: #2c1810;
 }
 
-/* Base Body Styles */
 body {
 background-color: #fdf5e6 !important;
 background-image:
@@ -21,7 +18,6 @@ color: var(--wiz-text) !important;
 font-family: 'Metamorphous', serif !important;
 }
 
-/* Header & Navigation */
 header {
 background: linear-gradient(to bottom, #2a5298, #1e3c72) !important;
 border-bottom: 4px solid var(--wiz-gold) !important;
@@ -34,7 +30,6 @@ color: #fff !important;
 text-shadow: 2px 2px 0px rgba(0,0,0,0.5) !important;
 }
 
-/* Main Container / Parchment Effect */
 main, .max-w-md, .max-w-4xl {
 background: var(--wiz-parchment) !important;
 border: 8px double var(--wiz-border) !important;
@@ -46,7 +41,6 @@ padding: 2rem !important;
 position: relative;
 }
 
-/* Ornate Corners Decoration (CSS pseudo-elements) */
 main::before, .max-w-md::before {
 content: "✧";
 position: absolute;
@@ -63,7 +57,6 @@ color: var(--wiz-border) !important;
 letter-spacing: 1px;
 }
 
-/* Buttons (Mana/Health Globe Style) /
 button:not([class="ai-"]),
 input[type="submit"],
 .bg-blue-600 {
@@ -82,7 +75,6 @@ transform: translateY(3px) !important;
 box-shadow: 0 1px 0px #0056b3 !important;
 }
 
-/* Cards (Themes Page) */
 .theme-card {
 background: var(--wiz-parchment-dark) !important;
 border: 2px solid var(--wiz-border) !important;
@@ -94,7 +86,6 @@ border-color: var(--wiz-gold) !important;
 box-shadow: 0 0 15px var(--wiz-gold) !important;
 }
 
-/* Inputs */
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -105,7 +96,6 @@ border-radius: 0 !important;
 color: var(--wiz-text) !important;
 }
 
-/* Profile Photo Frame */
 #photoContainer, .w-32.h-32 {
 border: 6px solid var(--wiz-gold) !important;
 outline: 2px solid var(--wiz-border) !important;
@@ -113,13 +103,11 @@ background: #fff !important;
 box-shadow: inset 0 0 10px rgba(0,0,0,0.2) !important;
 }
 
-/* Progress / Timer Text */
 .text-pink-600, .text-blue-600 {
 color: var(--wiz-blue) !important;
 font-weight: 800 !important;
 }
 
-/* Scrollbars */
 ::-webkit-scrollbar {
 width: 12px;
 }
@@ -134,7 +122,6 @@ border: 2px solid var(--wiz-parchment);
 border-radius: 10px;
 }
 
-/* Footer / Bottom Nav */
 nav.fixed {
 background: var(--wiz-parchment) !important;
 border-top: 3px solid var(--wiz-gold) !important;
@@ -144,16 +131,14 @@ nav.fixed span {
 color: var(--wiz-border) !important;
 }
 
-/* Ensure Settings toggles remain readable */
 .bg-gray-200 {
 background-color: #ccc !important;
 }
 
-/* Specific Page Overrides to maintain Light Mode consistency */
 .bg-white { background-color: var(--wiz-parchment) !important; }
 .text-gray-600, .text-gray-400 { color: #5d4037 !important; }
 
 .ai-button,
 [class="ai-"] {
-all: revert; /* Attempts to keep original style if defined by classes */
+all: revert;
 }

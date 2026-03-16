@@ -25,9 +25,7 @@
         return isUnlocked;
     }
 
-    // Initialize logic
     if (checkLockStatus()) {
-        // --- HIDE BANNER LOGIC ---
         const hideBannerStyle = document.createElement('style');
         hideBannerStyle.textContent = '#premium-banner { display: none !important; }';
         document.head.appendChild(hideBannerStyle);
@@ -42,7 +40,6 @@
         return;
     }
 
-    // UI Overlay (Locked State)
     const overlay = document.createElement('div');
     overlay.id = "premium-lock-overlay";
     overlay.style = `position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15, 15, 15, 0.4);backdrop-filter:blur(35px);-webkit-backdrop-filter:blur(35px);z-index:999999;display:flex;align-items:center;justify-content:center;font-family:sans-serif;`;

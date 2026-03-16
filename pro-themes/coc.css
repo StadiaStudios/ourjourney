@@ -11,7 +11,6 @@
     --coc-button-shadow: #2d6b2a;
 }
 
-/* Base Body Styles */
 body {
     background-color: var(--coc-bg) !important;
     background-image: 
@@ -21,7 +20,6 @@ body {
     font-family: 'Inter', sans-serif !important;
 }
 
-/* Supercell Style Headers */
 h1, h2, h3, .text-3xl {
     font-family: 'Bangers', cursive, 'Inter' !important;
     letter-spacing: 1px;
@@ -29,7 +27,6 @@ h1, h2, h3, .text-3xl {
     color: var(--coc-gold) !important;
 }
 
-/* Header/Navigation Styling */
 header {
     background-color: rgba(30, 30, 30, 0.95) !important;
     border-bottom: 3px solid var(--coc-border) !important;
@@ -40,7 +37,6 @@ header a, header span {
     color: var(--coc-text) !important;
 }
 
-/* Panels and Cards (Village Buildings Style) */
 .bg-white, .bg-gray-50, .theme-card, .max-w-md, .max-w-2xl {
     background-color: var(--coc-panel) !important;
     border: 2px solid var(--coc-border) !important;
@@ -48,7 +44,6 @@ header a, header span {
     box-shadow: 0 8px 0 rgba(0,0,0,0.3) !important;
 }
 
-/* Buttons (COC Unit/Building Upgrade Style) */
 button, .bg-blue-600, .bg-pink-600, .bg-green-600 {
     font-family: 'Inter', sans-serif;
     font-weight: 800 !important;
@@ -66,12 +61,10 @@ button:active {
     border-bottom-width: 2px !important;
 }
 
-/* Custom styles for specific elements in your pages */
 #timer-container, .grid {
     background: transparent !important;
 }
 
-/* Inputs and Forms */
 input[type="text"], input[type="date"], select {
     background-color: #1a1a1a !important;
     border: 2px solid var(--coc-border) !important;
@@ -83,7 +76,6 @@ input::placeholder {
     color: #666 !important;
 }
 
-/* Theme Cards in themes.html */
 .theme-card {
     border: 3px solid #333 !important;
 }
@@ -93,20 +85,17 @@ input::placeholder {
     box-shadow: 0 0 15px var(--coc-gold) !important;
 }
 
-/* Splash Page Photo Container */
 #photo-container {
     border: 4px solid var(--coc-border) !important;
     background: #111 !important;
     box-shadow: inset 0 0 20px rgba(0,0,0,0.5) !important;
 }
 
-/* Status Messages */
 #statusMsg, .bg-green-600.text-white {
     background-color: var(--coc-accent) !important; /* Elixir Purple */
     border: 2px solid #000 !important;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 12px;
     background: #121212;
@@ -118,12 +107,10 @@ input::placeholder {
     border-radius: 10px;
 }
 
-/* Icons */
 svg {
     color: var(--coc-gold) !important;
 }
 
-/* Date Display on Splash */
 #days, #hours, #minutes {
     color: var(--coc-accent) !important;
     font-family: 'Bangers', cursive !important;

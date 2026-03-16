@@ -149,7 +149,6 @@
     </div>
 
     <script>
-        // Apply theme based on settings.html preference
         function applyTheme() {
             const STORAGE_KEY_THEME = '__app_theme';
             const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
@@ -160,7 +159,6 @@
             }
         }
 
-        // Run on load
         window.onload = applyTheme;
     </script>
 </body>

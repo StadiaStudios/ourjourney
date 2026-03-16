@@ -1,8 +1,3 @@
-/* Microsoft Fluent Dark Theme
-   Inspired by Windows 11 and Microsoft 365
-   Covers Splash and Settings pages
-*/
-
 :root {
     --ms-bg-base: #1c1c1c;
     --ms-bg-secondary: #2b2b2b;
@@ -14,7 +9,6 @@
     --fluent-glass: rgba(43, 43, 43, 0.7);
 }
 
-/* Base Body Style */
 body {
     background-color: var(--ms-bg-base) !important;
     background-image: radial-gradient(circle at 50% 0%, #252525 0%, #1c1c1c 100%) !important;
@@ -23,7 +17,6 @@ body {
     font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif !important;
 }
 
-/* Fluent Header / Mica Effect */
 header {
     background-color: var(--fluent-glass) !important;
     backdrop-filter: blur(25px) saturate(1.5) !important;
@@ -37,12 +30,10 @@ header h1, #mainTitle {
     font-weight: 600 !important;
 }
 
-/* Microsoft Accent Color Overrides */
 .text-pink-600, .text-pink-500, .text-pink-400, .duration-value {
     color: var(--ms-accent) !important;
 }
 
-/* Card & Content Styling */
 #app .bg-pink-50, 
 #app .bg-white,
 #inputSection,
@@ -55,13 +46,11 @@ header h1, #mainTitle {
     color: var(--ms-text-main) !important;
 }
 
-/* Inner section styling for Settings */
 .bg-pink-50 {
     background: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
 }
 
-/* Buttons - Windows 11 Style */
 #setDateButton, 
 #saveNames,
 button.bg-pink-600 {
@@ -78,7 +67,6 @@ button.bg-pink-600 {
     background-color: var(--ms-accent-hover) !important;
 }
 
-/* Form Controls */
 input[type="date"],
 input[type="text"] {
     background: #000000 !important;
@@ -93,17 +81,14 @@ input[type="text"]:focus {
     border-bottom-color: var(--ms-accent) !important;
 }
 
-/* Toggle Switch */
 .peer-checked\:bg-pink-600:checked + div {
     background-color: var(--ms-accent) !important;
 }
 
-/* Text Secondary Colors */
 .text-gray-700, .text-gray-600, .text-gray-500, #dateDisplay {
     color: var(--ms-text-sub) !important;
 }
 
-/* List Symbols */
 #durationList li::before {
     content: '●' !important; /* Minimalist Microsoft bullet */
     color: var(--ms-accent);
@@ -111,7 +96,6 @@ input[type="text"]:focus {
     font-size: 0.8rem;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -129,7 +113,6 @@ input[type="text"]:focus {
     background: #555;
 }
 
-/* Settings Photo Logic */
 #photoPlaceholder {
     background: rgba(255, 255, 255, 0.02) !important;
     border: 1px dashed var(--ms-text-sub) !important;

@@ -1,23 +1,17 @@
-/**
- * premium.js - Pro purchase banner with Settings suppression
- */
 (function() {
     const STORAGE_KEY = '__app_premium_unlocked';
     const EXPIRY_KEY = '__app_premium_expiry';
     const HIDE_BANNER_KEY = '__app_hide_pro_banner';
     
-    // Check current status
     const isUnlocked = localStorage.getItem(STORAGE_KEY) === "true";
     const expiry = parseInt(localStorage.getItem(EXPIRY_KEY) || "0");
     const isBannerHiddenByChoice = localStorage.getItem(HIDE_BANNER_KEY) === "true";
     const now = Date.now();
 
-    // 1. Don't show if Pro is currently active
     if (isUnlocked && now < expiry) {
         return; 
     }
 
-    // 2. Don't show if user has toggled "Hide Banner" in Pro Settings
     if (isBannerHiddenByChoice) {
         return;
     }
@@ -76,7 +70,7 @@
 
         const titleText = isExpired ? "OurJourney Pro Expired" : "OurJourney Pro";
         const subtitleText = isExpired ? "Please reactivate your session" : "Unlock Custom App Themes";
-        const buttonText = isExpired ? "Reactivate" : "Get Pro • $4.99";
+        const buttonText = isExpired ? "Reactivate" : "Get Pro • $2.99";
 
         banner.innerHTML = `
             <div class="premium-content">
