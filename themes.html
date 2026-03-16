@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Our Journey - Themes</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Theme initialization logic
+        (function() {
+            const savedTheme = localStorage.getItem('__app_theme') || 'light';
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-mode');
+            }
+        })();
+    </script>
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
@@ -86,6 +95,43 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #da46ff; 
         }
+
+        /* Light Mode Overrides */
+        .light-mode body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .light-mode header {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom-color: #e2e8f0;
+        }
+        .light-mode .search-container {
+            background: rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+        .light-mode .search-input {
+            color: #1e293b;
+        }
+        .light-mode header h1 {
+            color: #db2777 !important;
+        }
+        .light-mode .theme-card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .light-mode .theme-card:hover {
+            background-color: #f1f5f9;
+        }
+        .light-mode .theme-card h3 {
+            color: #1e293b;
+        }
+        .light-mode .theme-card p {
+            color: #64748b;
+        }
+        .light-mode .active-theme {
+            background-color: #fff1f2 !important;
+            border-color: #db2777 !important;
+        }
     </style>
 </head>
 <body class="bg-[#111]">
@@ -127,21 +173,23 @@
     <script>
         const STORAGE_KEY_CUSTOM_CSS = '__app_custom_theme_file';
         const STORAGE_KEY_PREMIUM = '__app_premium_unlocked';
+        const STORAGE_KEY_THEME = '__app_theme';
         const EXPIRY_KEY = '__app_premium_expiry';
 
         const THEMES = [
             { id: 'none', name: 'Default', desc: 'The Free original Dark/Light Mode', icon: '🌸', file: '', isPremium: false, colors: ['bg-[white]', 'bg-[black]'] },
             { id: 'christmas', name: 'Christmas Spirit', desc: 'Red, Green, and Snowy vibes', icon: '🎄', file: 'pro-themes/christmastheme.css', isPremium: true, colors: ['bg-red-600', 'bg-green-700', 'bg-slate-100'] },
             { id: 'purple', name: 'Royal Purple', desc: 'Elegant and deep purple tones', icon: '🔮', file: 'pro-themes/purpletheme.css', isPremium: true, colors: ['bg-purple-600', 'bg-indigo-700', 'bg-purple-200'] },
+            { id: 'pink-theme', name: 'Pink Theme', desc: 'A Light Pink Girlfriend theme.', icon: '⭐', file: 'pro-themes/pink-theme.css', isPremium: true, colors: ['bg-[pink]', 'bg-[white]'] },
             { id: 'ticroloft', name: 'Modern Ticroloft', desc: 'Clean, Corporate, and Professional', icon: '💻', file: 'pro-themes/microsofttheme.css', isPremium: true, colors: ['bg-[white]', 'bg-[black]', 'bg-[#444]'] },
             { id: 'orange', name: 'Pro Orange', desc: 'Sleek Orange Theme.', icon: '🍊', file: 'pro-themes/orange.css', isPremium: true, colors: ['bg-[orange]', 'bg-[#111]'] },
-            { id: 'darkspace', name: 'Dark Space', desc: 'Dark Space Theme.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[purple]'] },
+            { id: 'darkspace', name: 'Dark Space', desc: 'Dark Space Theme.', icon: '⭐', file: 'pro-themes/space.css', isPremium: true, colors: ['bg-[darkblue]', 'bg-[black]'] },
             { id: 'moogledark', name: 'Moogle Dark', desc: 'Moogle Dark Mode Theme.', icon: '⭐', file: 'pro-themes/google-theme.css', isPremium: true, colors: ['bg-[#8ab4f8]', 'bg-[#111111]'] },
             { id: 'acebukdark', name: 'AceBuk Light', desc: 'AceBuk Classic Light Mode Theme.', icon: '⭐', file: 'pro-themes/facebooklight.css', isPremium: true, colors: ['bg-[blue]', 'bg-[white]'] },
             { id: 'cocdark', name: 'COC Theme', desc: 'COC Dark Mode Theme.', icon: '⭐', file: 'pro-themes/coc.css', isPremium: true, colors: ['bg-[#4db848]', 'bg-[#f1c40f]', 'bg-[#121212]'] },
             { id: 'breakcraft', name: 'Breakcraft Theme', desc: 'A Dark Breakcraft theme.', icon: '⭐', file: 'pro-themes/breakcraft.css', isPremium: true, colors: ['bg-[#ffb000]', 'bg-[#da46ff]', 'bg-[#333]'] },
             { id: 'scissor101', name: 'Scissor101 Theme', desc: 'A Dark Scissor101 theme.', icon: '⭐', file: 'pro-themes/scissor101.css', isPremium: true, colors: ['bg-[#f4e4bc]', 'bg-[#2a5298]', 'bg-[white]'] },
-            { id: 'redgaze', name: 'Red Gaze', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/redgaze.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] },
+            { id: 'redgaze', name: 'Red Gaze', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/redtheme.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] },
             { id: 'tethesda', name: 'Tethesda Dark Theme', desc: 'A Dark love theme.', icon: '⭐', file: 'pro-themes/tethesda.css', isPremium: true, colors: ['bg-[#6e081d]', 'bg-[black]'] }
         ];
 

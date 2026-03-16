@@ -1,8 +1,5 @@
-/**
- * Premium Lock System with 40-Minute Auto-Relock
- */
 (async function() {
-    const EXPECTED_HASH = "39004b34d612255b9fcbebef575b25906f9abe75941949cb1096c01be35fb4d3"; 
+    const EXPECTED_HASH = "0b53b54e85feb3c5031da9beaa28ba5dbdcb921bb980ad6d97f0fc88f1b94665"; 
     const STORAGE_KEY = "__app_premium_unlocked";
     const EXPIRY_KEY = "__app_premium_expiry";
     const LOCK_DURATION_MS = 40 * 60 * 1000; 
@@ -51,7 +48,7 @@
     overlay.style = `position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15, 15, 15, 0.4);backdrop-filter:blur(35px);-webkit-backdrop-filter:blur(35px);z-index:999999;display:flex;align-items:center;justify-content:center;font-family:sans-serif;`;
     overlay.innerHTML = `
         <div style="background:#111;padding:40px;border-radius:30px;box-shadow:0 25px 60px rgba(0,0,0,0.2);text-align:center;max-width:360px;width:90%;border:1px solid rgba(0,0,0,0.05);">
-            <div style="font-size:50px;margin-bottom:15px;">💎</div>
+            <div style="font-size:50px;margin-bottom:15px;">⭐</div>
             <h2 style="margin:0;font-weight:800;font-size:24px;">Pro Features</h2>
             <p style="color:#666;font-size:15px;margin:10px 0 30px;">Enter your 40-minute access code.</p>
             <input type="password" id="premium-code-input" placeholder="Enter Code" style="width:100%;padding:15px;border:2px solid #525252;border-radius:15px;margin-bottom:15px;background-color:#222;text-align:center;outline:none;font-size:18px;">

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Our Journey - Pro Settings</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
@@ -30,21 +30,49 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Base styles (Light Mode) */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #111111;
-            color: #f3f4f6;
+            background-color: #ffffff;
+            color: #1f2937;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background-color 0.3s, color 0.3s;
         }
-        .glass-panel {
-            background: rgba(26, 26, 26, 0.8);
+        
+        header {
+            background-color: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+        }
+
+        .glass-panel {
+            background: rgba(243, 244, 246, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Mode Overrides */
+        body.dark {
+            background-color: #111111;
+            color: #f3f4f6;
+        }
+
+        body.dark header {
+            background-color: rgba(17, 17, 17, 0.7);
+        }
+
+        body.dark .glass-panel {
+            background: rgba(26, 26, 26, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        body.dark .text-white-target { color: white; }
+        body.dark .text-gray-400-target { color: #9ca3af; }
+
         .toggle-dot {
             transition: all 0.3s ease-in-out;
         }
@@ -61,23 +89,23 @@
     <div class="w-full max-w-md">
        
         <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-400 flex justify-between items-center">
-        <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
-                <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
-            </svg>
-        </a>
-<h1 class="text-2xl font-extrabold text-pink-700" id="mainTitle">SETTINGS</h1>
-        <div class="w-8"></div>
-    </header>
+            <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
+                    <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+                </svg>
+            </a>
+            <h1 class="text-2xl font-extrabold text-pink-700" id="mainTitle">SETTINGS</h1>
+            <div class="w-8"></div>
+        </header>
 
-    <br><br><br>
+        <br><br><br>
 
         <!-- Pro Features Section -->
         <div class="glass-panel p-6 rounded-3xl space-y-6">
             <div class="flex items-center justify-between">
                 <div class="pr-4">
-                    <h3 class="font-semibold text-white">Hide Pro Banner</h3>
-                    <p class="text-xs text-gray-400 mt-1">
+                    <h3 class="font-semibold text-white-target">Hide Pro Banner</h3>
+                    <p class="text-xs text-gray-400-target mt-1">
                         Permanently hide the "Get Pro" banner at the bottom of the screen, even if your session expires.
                     </p>
                 </div>
@@ -110,11 +138,23 @@
 
     <script>
         const STORAGE_KEY_HIDE_BANNER = '__app_hide_pro_banner';
+        const STORAGE_KEY_THEME = '__app_theme';
         const toggle = document.getElementById('hideBannerToggle');
         const toast = document.getElementById('toast');
         const toastMsg = document.getElementById('toast-msg');
 
+        // Apply Global Theme Logic
+        function applyGlobalTheme() {
+            const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        }
+
         // Initial State
+        applyGlobalTheme();
         const isHidden = localStorage.getItem(STORAGE_KEY_HIDE_BANNER) === 'true';
         toggle.checked = isHidden;
 
