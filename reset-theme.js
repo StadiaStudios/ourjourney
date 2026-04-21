@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toggleContainer) {
         const resetBtn = document.createElement('button');
         resetBtn.id = 'resetThemeBtn';
-        resetBtn.className = 'w-full bg-dark-100 hover:bg-red-50 text-gray-600 hover:text-red-600 font-bold py-3 rounded-xl transition border border-gray-200 mt-4 mb-2';
-        resetBtn.innerHTML = 'Reset Theme to Default';
+        resetBtn.className = 'ai-button mt-4 mb-2';
+        resetBtn.innerHTML = 'RESET THEME TO DEFAULT';
 
         toggleContainer.parentNode.insertBefore(resetBtn, toggleContainer.nextSibling);
 

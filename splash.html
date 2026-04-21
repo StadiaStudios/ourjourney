@@ -49,7 +49,7 @@
         }
         
         #durationList li::before {
-            content: '❤️';
+            content: '•';
             position: absolute;
             left: 0;
             color: #d946ef;
@@ -59,7 +59,7 @@
         
         .duration-value {
             font-weight: 800;
-            color: #be185d;
+            color: #d946ef;
             margin-right: 0.15rem;
             transition: color 0.3s;
         }
@@ -117,7 +117,7 @@
         body.dark .text-pink-600, body.dark .text-pink-700 { color: #e45fff; }
 
         body.dark .duration-value {
-            color: #ff5656; 
+            color: #d946ef;
         }
 
         ::-webkit-scrollbar {
@@ -198,12 +198,12 @@
                 <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.78 1.35a2 2 0 0 0 .73 2.73l.15.08a2 2 0 0 1 1 1.74v.44a2 2 0 0 1-1 1.73l-.15.08a2 2 0 0 0-.73 2.73l.78 1.35a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.78-1.35a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.44a2 2 0 0 1 1-1.73l.15-.08a2 2 0 0 0 .73-2.73l-.78-1.35a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
             </svg>
         </a>
-        <h1 class="text-2xl font-extrabold text-pink-700" id="mainTitle">Our Journey💖</h1>
+        <h1 class="text-2xl font-extrabold text-pink-700" id="mainTitle">Our Journey</h1>
         <p class="text-sm w-8"></p>
         <p id="dateDisplay" class="text-sm text-gray-600 font-medium absolute right-1/2 translate-x-1/2 bottom-1"></p>
     </header>
 
-<div id="app" class="w-full max-w-xl text-center transition-all duration-300" style="padding-top: 4.5rem; padding-bottom: 2rem;">
+<div id="app" class="w-full max-w-xl text-center transition-all duration-300" style="padding-bottom: 2rem;">
 
         <div id="welcomeMessage" class="p-8 mb-8 bg-pink-50 rounded-xl border-2 border-pink-300 shadow-lg hidden">
             <h2 class="text-2xl font-bold text-pink-600 mb-4">Welcome to <span id="welcomeNames"></span>'s Journey!</h2>
@@ -233,6 +233,10 @@
         </div>
 
         <div id="anniversaryContainer" class="mb-8 hidden"></div>
+
+        <button type="button" id="changeDateBtn" class="hidden mb-4 w-full text-sm font-semibold text-pink-600 hover:text-pink-700">
+            Change relationship start date
+        </button>
         
         <div id="inputSection" class="p-4 bg-pink-50 rounded-xl border border-pink-200 shadow-md">
             <label for="startDate" class="block text-left text-sm font-semibold text-gray-700 mb-2">Set Our Start Date:</label>
@@ -273,8 +277,33 @@
         const welcomeMessage = document.getElementById('welcomeMessage');
         const timerContainer = document.getElementById('timerContainer');
         const anniversaryContainer = document.getElementById('anniversaryContainer');
+        const inputSection = document.getElementById('inputSection');
+        const changeDateBtn = document.getElementById('changeDateBtn');
+        const pageHeader = document.querySelector('header');
+        const appContainer = document.getElementById('app');
 
         let intervalId = null;
+        let dateEditorOpen = false;
+
+        function updateStartDateFormVisibility() {
+            if (!inputSection || !changeDateBtn) return;
+            const startDateString = localStorage.getItem(STORAGE_KEY_DATE);
+            if (startDateString) {
+                if (dateEditorOpen) {
+                    inputSection.classList.remove('hidden');
+                    changeDateBtn.textContent = 'Hide date editor';
+                } else {
+                    inputSection.classList.add('hidden');
+                    changeDateBtn.textContent = 'Change relationship start date';
+                }
+                changeDateBtn.classList.remove('hidden');
+            } else {
+                dateEditorOpen = false;
+                inputSection.classList.remove('hidden');
+                changeDateBtn.classList.add('hidden');
+                changeDateBtn.textContent = 'Change relationship start date';
+            }
+        }
 
         function applyTheme() {
             const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
@@ -302,7 +331,7 @@
                 titleText = "Our Journey";
             }
 
-            mainTitle.textContent = `${titleText} 💖`;
+            mainTitle.textContent = titleText;
             welcomeNames.textContent = titleText;
         }
 
@@ -371,7 +400,7 @@
             });
 
             if (displayedUnits === 0) {
-                durationList.innerHTML = '<li class="text-gray-500 text-xl text-center font-semibold">Today is Day One! ❤️</li>';
+                durationList.innerHTML = '<li class="text-gray-500 text-xl text-center font-semibold">Today is Day One!</li>';
             }
 
             const diffMs = nowDate - startDate;
@@ -403,6 +432,7 @@
             if (dateInput.value) {
                 localStorage.setItem(STORAGE_KEY_DATE, dateInput.value);
                 showMessage("Our special date has been set!", "bg-green-600");
+                dateEditorOpen = false;
                 initTimer();
             } else {
                 showMessage("Please select a valid date.", "bg-red-600");
@@ -433,20 +463,37 @@
             }
         }
 
+        function syncAppOffsetWithHeader() {
+            if (!pageHeader || !appContainer) return;
+            appContainer.style.paddingTop = `${pageHeader.offsetHeight}px`;
+        }
+
         function initTimer() {
             applyTheme();
             updateNamesDisplay(); 
+            syncAppOffsetWithHeader();
             const existingDate = localStorage.getItem(STORAGE_KEY_DATE);
             if (existingDate) dateInput.value = existingDate;
             displayPhoto(localStorage.getItem(STORAGE_KEY_PHOTO));
             if (intervalId) clearInterval(intervalId);
             calculateAndDisplayTime();
+            updateStartDateFormVisibility();
             intervalId = setInterval(calculateAndDisplayTime, 60000);
         }
+
+        changeDateBtn.addEventListener('click', () => {
+            if (!localStorage.getItem(STORAGE_KEY_DATE)) return;
+            dateEditorOpen = !dateEditorOpen;
+            updateStartDateFormVisibility();
+            if (dateEditorOpen) {
+                inputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
 
         dateButton.addEventListener('click', saveDate);
         photoUploadInput.addEventListener('change', handlePhotoUpload);
         photoContainer.addEventListener('click', () => photoUploadInput.click());
+        window.addEventListener('resize', syncAppOffsetWithHeader);
         window.onload = initTimer;
     </script>
 </body>

@@ -1,40 +1,79 @@
-window.renderAnniversaries = function(startDate) {
+window.renderAnniversaries = function (startDate) {
     const container = document.getElementById('anniversaryContainer');
     if (!container) return;
+
+    if (!(startDate instanceof Date) || isNaN(startDate.getTime())) {
+        container.innerHTML = '';
+        return;
+    }
 
     const now = new Date();
     const milestones = [];
 
-    for (let i = 1; i <= 10; i++) {
-        const date = new Date(startDate);
-        date.setFullYear(startDate.getFullYear() + i);
+    function addYears(base, n) {
+        const d = new Date(base.getTime());
+        d.setFullYear(d.getFullYear() + n);
+        return d;
+    }
+
+    function addMonths(base, n) {
+        const d = new Date(base.getTime());
+        d.setMonth(d.getMonth() + n);
+        return d;
+    }
+
+    function addDays(base, n) {
+        return new Date(base.getTime() + n * 24 * 60 * 60 * 1000);
+    }
+
+    // Next up to 2 future year anniversaries (not limited to "10 years after start")
+    let yearAnniversaries = 0;
+    for (let i = 1; i <= 200 && yearAnniversaries < 2; i++) {
+        const date = addYears(startDate, i);
         if (date > now) {
             milestones.push({ date, label: `${i} Year Anniversary`, icon: '💍' });
-            if (milestones.length >= 2) break;
+            yearAnniversaries++;
         }
     }
 
-    for (let i = 5; i <= 120; i += 5) {
-        const date = new Date(startDate);
-        date.setMonth(startDate.getMonth() + i);
+    // Next 5-month milestone (5, 10, 15… months from start) — scan far enough for long relationships
+    for (let i = 5; i <= 1200; i += 5) {
+        const date = addMonths(startDate, i);
         if (date > now) {
             milestones.push({ date, label: `${i} Months Together`, icon: '✨' });
-            break; // Just show the next one
+            break;
         }
     }
 
-    const dayTargets = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000];
+    // Day milestones: extend targets so long relationships still get a "next" day count
+    const dayTargets = [];
+    for (let d = 100; d <= 1000; d += 100) dayTargets.push(d);
+    for (let d = 1500; d <= 10000; d += 500) dayTargets.push(d);
+    for (let d = 11000; d <= 100000; d += 1000) dayTargets.push(d);
+
     for (let target of dayTargets) {
-        const date = new Date(startDate.getTime() + (target * 24 * 60 * 60 * 1000));
+        const date = addDays(startDate, target);
         if (date > now) {
             milestones.push({ date, label: `${target} Days Milestone`, icon: '🎯' });
-            break; // Just show the next one
+            break;
         }
     }
 
     milestones.sort((a, b) => a.date - b.date);
 
     const upcoming = milestones.slice(0, 3);
+
+    if (upcoming.length === 0) {
+        container.innerHTML = `
+        <div class="text-left mt-4">
+            <h3 class="text-xs font-bold text-gray-600 uppercase tracking-widest mb-4 flex items-center">
+                <span class="mr-2">Upcoming Milestones</span>
+                <div class="flex-grow border-t border-pink-200"></div>
+            </h3>
+            <p class="text-sm text-gray-500 text-center py-4">No upcoming milestones to show yet.</p>
+        </div>`;
+        return;
+    }
 
     let html = `
         <div class="text-left mt-4 animate-fade-in">

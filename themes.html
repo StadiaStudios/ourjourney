@@ -6,15 +6,15 @@
     <title>Our Journey - Themes</title>
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/x-icon" href="assets/favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        (function() {
-            const savedTheme = localStorage.getItem('__app_theme') || 'light';
-            if (savedTheme === 'light') {
+        (function () {
+            var theme = localStorage.getItem('__app_theme') || 'light';
+            if (theme === 'light') {
                 document.documentElement.classList.add('light-mode');
             }
         })();
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
@@ -142,7 +142,7 @@
         }
     </style>
 </head>
-<body class="bg-[#111]">
+<body>
     <!-- Premium lock script removed -->
 
     <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-600 flex justify-between items-center">
