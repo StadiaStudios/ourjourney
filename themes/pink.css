@@ -1,0 +1,104 @@
+/* themes/pink.css - Ultra Hotpink Theme */
+:root {
+    --bg-color: #ffb8e1;
+    --card-bg: #ff4eb8;
+    --text-primary: #fff;
+    --text-secondary: #ffe0f4;
+    --accent-color: #ff1493;
+    --accent-hover: #d0006f;
+    --border-color: #ff1493;
+    --header-bg: rgba(255, 20, 147, 0.93);
+}
+
+/* App-specific overrides for "HOT HOT PINK" theme */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+}
+
+/* Fix OurJourney header - ensure ultra readable contrast */
+.sticky-header,
+.nav-container h1,
+.header-title,
+.ourjourney-title {
+    color: #fff !important;
+    text-shadow: 0 1px 8px #ff149375, 0 2px 8px #b40067c7;
+    /* fallback in case var() fails */
+}
+
+/* Improve duration numbers and labels visibility */
+.duration-list li,
+.duration-list li span,
+#durationList li,
+#durationList li span,
+#altStatsContainer p,
+#altStatsContainer strong,
+.milestone-card,
+.milestone-card span {
+    background: var(--card-bg, #ff4eb8);
+    color: #fff !important;
+    font-weight: 700;
+    text-shadow: 0 1px 8px #ff149375, 0 1px 5px #d0006f35;
+    border-radius: 6px;
+    /* maintain shadow readable for pink backgrounds */
+}
+
+.duration-list li span,
+#durationList li span,
+#altStatsContainer strong {
+    font-size: 1.4em;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+}
+
+.settings-wrapper,
+.couple-names-box {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: 0 4px 28px rgba(255, 20, 147, 0.18), 0 2px 16px rgba(255, 20, 147, 0.09);
+}
+
+.theme-select,
+.couple-input {
+    background: #ff99d6;
+    border-color: var(--border-color);
+    color: #fff;
+}
+
+.theme-select:focus,
+.couple-input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px #ffdfef;
+}
+
+.save-names-btn {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 10px #ff70c4a1;
+}
+
+.save-names-btn:hover {
+    background: var(--accent-hover);
+}
+
+.app-version {
+    color: var(--text-secondary);
+}
+
+.settings-link,
+.settings-link:visited {
+    color: #fff;
+    text-shadow: 0 1px 7px #ff149358, 0 0px 1px #ff70c4;
+}
+
+.settings-link:hover {
+    color: #ffd6f4;
+    text-shadow: 0 2px 12px #ff149382;
+}
+
+.sticky-header {
+    background-color: var(--header-bg);
+    border-bottom: 2px solid var(--border-color);
+    color: #fff;
+}

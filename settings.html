@@ -3,311 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Journey - Settings</title>
-    <script>
-    (function() {
-        const themeFile = localStorage.getItem('__app_custom_theme_file');
-        if (themeFile) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = themeFile;
-            document.head.appendChild(link);
-        }
-    })();
-</script>
+    <title>Settings | Our Journey</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
+            background: var(--background, #161616);
+            color: var(--text-primary, #222);
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
             min-height: 100vh;
-            padding: 0;
-            margin: 0; 
-            width: 100%;
-            transition: background-color 0.3s;
+
+            /* Enable smoother custom scrollbar look for whole page (Webkit) */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color,#f472b6) var(--background,#fafafa);
         }
+        /* Custom Scrollbar for Webkit browsers (Chrome, Edge, Safari) */
         ::-webkit-scrollbar {
             width: 10px;
+            background: var(--background, #1b1b1b);
         }
-
-        ::-webkit-scrollbar-track {
-            background: #111;
-        }
-        
         ::-webkit-scrollbar-thumb {
-            background: rgb(122, 1, 116); 
-            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-color, #f472b6) 70%, var(--card-bg, #fff) 100%);
+            border-radius: 9px;
         }
-
         ::-webkit-scrollbar-thumb:hover {
-            background: #da46ff; 
+            background: linear-gradient(135deg, var(--accent-hover, #db2777) 85%, var(--card-bg, #fff) 100%);
         }
 
-        header {
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        .settings-wrapper {
+            max-width: 400px;
+            margin: 3rem auto;
+            background: var(--card-bg, #fff);
+            border-radius: 16px;
+            box-shadow: 0 2px 16px rgb(60 60 60 / 10%);
+            padding: 2.5rem 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-color, #f472b6) var(--card-bg, #fff);
+        }
+        /* Custom Scrollbar for .settings-wrapper (Webkit) */
+        .settings-wrapper::-webkit-scrollbar {
+            width: 8px;
+            background: var(--card-bg, #fff);
+        }
+        .settings-wrapper::-webkit-scrollbar-thumb {
+            background: var(--accent-color, #f472b6);
+            border-radius: 8px;
+        }
+        .settings-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover, #db2777);
         }
 
-        body.dark {
-            background-color: #111111;
-            color: #e2e8f0;
+        .settings-title {
+            font-size: 2rem;
+            margin: 0 0 1.2rem;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
-        
-        body.dark .bg-white {
-            background-color: #222222;
-            color: #e2e8f0;
+        .settings-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 1.06rem;
         }
-
-        body.dark .shadow-lg {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.12);
+        .settings-list li:not(:last-child) {
+            border-bottom: 1px solid #ececec;
         }
-
-        body.dark .text-gray-700 { color: #cbd5e0; }
-        body.dark .text-gray-600 { color: #8894a3; }
-        body.dark .text-gray-500 { color: #718096; }
-
-        body.dark .bg-pink-50 { background-color: #222; }
-        body.dark .border-pink-200 { border-color: #4a5568; }
-
-        body.dark input[type="text"] {
-            color: #e2e8f0; 
-            background-color: #222222;
-            border-color: #4a5568;
+        .settings-link, .settings-link:visited {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--accent-color, #1677ff);
+            text-decoration: none;
+            padding: 1rem 0 1rem 0.25rem;
+            font-weight: 500;
+            transition: color 0.18s;
         }
-        
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-button, input, textarea, select {
-    border: 2px solid rgb(255, 0, 149);
-    outline: none;
-    background: none;
-}
-
-        body.dark header {
-            background-color: rgba(34, 34, 34, 0.7);
-            border-bottom-color: #334155;
+        .settings-link svg {
+            opacity: 0.5;
+            margin-left: 0.7em;
         }
-
-        .ai-button-container {
-  display: inline-block;
-  text-decoration: none;
-  width: 100%;
-  margin-bottom: 12px;
-}
-
-.ai-button {
-  width: 100%;
-  background: #f9fafb;
-  color: #374151;
-  padding: 12px 24px;
-  border-radius: 10px;
-  border: 1px solid #f9a8d4;
-  font-weight: bold;
-  cursor: pointer;
-  display: block;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-}
-
-body.dark .ai-button {
-  background: #161616;
-  color: #f3f4f6;
-  border-color: #4b5563;
-}
-
-.ai-button-container:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-.ai-button:hover {
-  background: #fdf2f8;
-  color: #be185d;
-  border-color: #f472b6;
-}
-
-body.dark .ai-button:hover {
-  background: #222;
-  color: #f9a8d4;
-  border-color: #6b7280;
-}
+        .settings-link:hover {
+            color: #36a2ed;
+        }
+        .app-version {
+            margin: 2rem 0 0 0;
+            text-align: center;
+            font-size: 0.93rem;
+            color: var(--text-secondary, #888);
+            letter-spacing: 0.01em;
+        }
+        .app-version-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.7rem 0 0.7rem 0;
+            font-size: 1.02rem;
+            color: var(--text-secondary, #888);
+        }
+        .app-version-label {
+            font-weight: 600;
+            margin-right: 0.5em;
+        }
+        .couple-names-box {
+            margin: 1.5rem 0 2rem 0;
+            background: var(--card-bg, #fff);
+            border-radius: 12px;
+            box-shadow: 0 1px 8px rgb(60 60 60 / 6%);
+            padding: 1.35rem 1rem 1.5rem 1rem;
+        }
+        .relationship-date-box {
+            margin: 0 0 2rem 0;
+            background: var(--card-bg, #fff);
+            border-radius: 12px;
+            box-shadow: 0 1px 8px rgb(60 60 60 / 6%);
+            padding: 1.35rem 1rem 1.5rem 1rem;
+        }
+        .couple-label,.relationship-date-label {
+            display: block;
+            color: var(--text-secondary, #888);
+            margin-bottom: 0.7rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+        .couple-input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75em;
+            margin-bottom: 1.1em;
+            width: 100%;
+        }
+        @media (max-width: 480px) {
+            .settings-wrapper {
+                padding: 1.2rem 0.4rem;
+            }
+            .couple-names-box, .relationship-date-box {
+                padding: 1rem 0.4rem 1.2rem 0.4rem;
+            }
+            .couple-input-row {
+                grid-template-columns: 1fr;
+                gap: 0.6em;
+            }
+        }
+        .couple-input, .relationship-date-input {
+            width: 100%;
+            min-width: 0; /* Prevent overflow with flex/grid */
+            padding: 0.65em 0.9em;
+            border-radius: 7px;
+            border: 1px solid var(--border-color, #ececec);
+            background: var(--bg-color, #fff);
+            color: var(--text-primary, #111);
+            font-size: 1.02em;
+            outline: none;
+            transition: border 0.15s;
+            box-sizing: border-box;
+        }
+        .couple-input:focus, .relationship-date-input:focus {
+            border-color: var(--accent-color, #f472b6);
+        }
+        .save-names-btn, .save-date-btn {
+            width: 100%;
+            background: var(--accent-color, #f472b6);
+            border: none;
+            color: #fff;
+            padding: 0.7em 1.2em;
+            border-radius: 7px;
+            font-weight: 600;
+            font-size: 1.05em;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            margin-top: 0.4em;
+            transition: background 0.16s;
+        }
+        .save-names-btn:hover, .save-date-btn:hover {
+            background: var(--accent-hover, #db2777);
+        }
+        .save-success, .save-date-success {
+            display: none;
+            text-align: center;
+            color: var(--accent-color, #f472b6);
+            font-size: 0.98em;
+            margin-top: 0.9em;
+            font-weight: 500;
+        }
+        .save-success.active, .save-date-success.active {
+            display: block;
+        }
+   
     </style>
 </head>
 <body>
-    
-    <header class="fixed top-0 left-0 w-full z-50 shadow-lg p-4 text-center border-b border-pink-400 flex justify-between items-center">
-        <a href="splash.html" class="text-gray-500 hover:text-pink-600 transition duration-150">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left">
-                <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
-            </svg>
-        </a>
-<h1 class="text-2xl font-extrabold text-pink-700" id="mainTitle">SETTINGS</h1>
-        <div class="w-8"></div>
-    </header>
-
-    <div class="w-full px-6 md:px-10 pt-24 pb-12">
-        <div class="w-full space-y-8">
-            
-            <section>
-                <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
-                    <span class="mr-2 text-pink-500">✨</span> Appearance
-                </h2>
-                <div class="flex items-center justify-between p-4 bg-pink-50 rounded-xl">
-                    <div>
-                        <p class="font-semibold text-gray-700">Dark Mode</p>
-                        <p class="text-sm text-gray-500">Switch between light and dark themes</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="darkModeToggle" class="sr-only peer">
-                        <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-pink-600"></div>
-                    </label>
-                </div>
-
-                <a class="ai-button-container w-full block" href="themes.html"><button class="ai-button">
-                        APP THEMES
-                    </button>
-                    </a>
-                
-                <br>
-                    <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
-                    <span class="mr-2 text-pink-500">❤️</span> General
-                </h2>
-                    <a class="ai-button-container" href="#"><button class="ai-button">
-                       JOIN DISCORD 🔗
-                    </button>
-                    </a>
-                <a href="https://stadiastudios.github.io/stadia/" target="_blank" rel="noopener noreferrer" class="ai-button-container">
-  <button class="ai-button">
-    <span class="button-text">OFFICIAL WEBSITE 🔗</span>
-  </button>
-</a>
-                <a href="tos.html" class="ai-button-container">
-  <button class="ai-button">
-    <span class="button-text">TERMS OF SERVICE 🔗</span>
-  </button>
-</a>
-<a href="mailto:stadiastudios.support@proton.me?subject=Support%20Request" class="ai-button-container">
-  <button class="ai-button">
-    <span class="button-text">CONTACT SUPPORT ✉️</span>
-  </button>
-</a>
-            </section>
-
-            <section>
-                <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
-                    <span class="mr-2 text-pink-500">📝</span> Customize Names
-                </h2>
-                <div class="space-y-4">
-                    <div class="p-4">
-                        <label class="block text-sm font-semibold text-gray-600 mb-2">First Name</label>
-                        <input type="text" id="name1" placeholder="Enter first name" 
-                               class="w-full p-3 rounded-lg focus:ring-pink-500 focus:border-pink-500">
-                    </div>
-                    <div class="p-4">
-                        <label class="block text-sm font-semibold text-gray-600 mb-2">Second Name</label>
-                        <input type="text" id="name2" placeholder="Enter second name" 
-                               class="w-full p-3 rounded-lg focus:ring-pink-500 focus:border-pink-500">
-                    </div>
-                    <button id="saveNames" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 rounded-xl transition shadow-md">
-                        Save Names
-                    </button>
-                </div>
-            </section>
-
-            <section>
-                <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center">
-                    <span class="mr-2 text-pink-500">📸</span> Photo Management
-                </h2>
-                <button id="removePhoto" class="ai-button">
-                    RESET COUPLE PHOTO TO DEFAULT
-                </button>
-            </section>
-
-            <div class="pt-6 text-center border-t border-pink-300">
-                <p class="text-xs text-gray-400 font-semibold tracking-widest uppercase">
-                    Version 1.8.6
-                </p>
-            </div>
-
-        </div>
-    </div>
-
-    <div id="messageBox" class="fixed top-4 right-4 z-50 p-3 bg-green-500 text-white rounded-lg shadow-xl opacity-0 transition-opacity duration-300 pointer-events-none" role="alert">
-        Settings saved!
-    </div>
-
-    <script src="premium.js"></script>
-    <script src="reset-theme.js"></script>
-    <script>
-        const STORAGE_KEY_NAMES = '__relationship_names';
-        const STORAGE_KEY_THEME = '__app_theme';
-        const STORAGE_KEY_PHOTO = '__relationship_photo_data';
-
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const name1Input = document.getElementById('name1');
-        const name2Input = document.getElementById('name2');
-        const saveNamesButton = document.getElementById('saveNames');
-        const removePhotoButton = document.getElementById('removePhoto');
-        const messageBox = document.getElementById('messageBox');
-
-        function showMessage(message, bgColor) {
-            messageBox.textContent = message;
-            messageBox.className = `fixed top-4 right-4 z-50 p-3 text-white rounded-lg shadow-xl opacity-100 transition-opacity duration-300 ${bgColor}`;
-            setTimeout(() => { messageBox.classList.replace('opacity-100', 'opacity-0'); }, 3000);
-        }
-
-        function applyTheme() {
-            const savedTheme = localStorage.getItem(STORAGE_KEY_THEME) || 'light';
-            const isDark = savedTheme === 'dark';
-            document.body.classList.toggle('dark', isDark);
-            darkModeToggle.checked = isDark;
-        }
-
-        function toggleDarkMode() {
-            const isDark = darkModeToggle.checked;
-            const theme = isDark ? 'dark' : 'light';
-            localStorage.setItem(STORAGE_KEY_THEME, theme);
-            applyTheme();
-            showMessage(`Dark mode is now ${isDark ? 'ON' : 'OFF'}!`, 'bg-pink-600');
-        }
-
-        function loadNames() {
-            const namesJson = localStorage.getItem(STORAGE_KEY_NAMES);
-            let names = { name1: "", name2: "" };
-            if (namesJson) {
-                try {
-                    names = JSON.parse(namesJson);
-                } catch (e) {}
-            }
-            name1Input.value = names.name1 || "";
-            name2Input.value = names.name2 || "";
-        }
+    <!-- Navbar (injected by navbar.js, like index.html) -->
+    <div id="navbar-placeholder"></div>
+    <div class="settings-wrapper">
+        <div class="settings-title">Settings</div>
         
-        function saveNames() {
-            const name1 = name1Input.value.trim();
-            const name2 = name2Input.value.trim();
-            localStorage.setItem(STORAGE_KEY_NAMES, JSON.stringify({ name1, name2 }));
-            showMessage("Names saved successfully!", "bg-green-600");
-        }
+        <!-- App Version Display Row (NEW) -->
+        <div class="app-version-row">
+            <span class="app-version-label">App Version:</span>
+            <span id="appVersionValue"><strong>1.9.7</strong></span>
+        </div>
+        
+        <div class="relationship-date-box">
+            <label class="relationship-date-label" for="relationshipStartDate">
+                Relationship Start Date
+            </label>
+            <input type="date" id="relationshipStartDate" class="relationship-date-input" />
+            <button type="button" class="save-date-btn" id="saveDateBtnSettings">
+                Save Date
+            </button>
+            <span class="save-date-success" id="saveDateSuccessMsg">Saved!</span>
+        </div>
 
-        function removePhoto() {
-            localStorage.removeItem(STORAGE_KEY_PHOTO);
-            showMessage("Photo removed.", "bg-red-500");
-        }
+        <div class="couple-names-box">
+            <label class="couple-label" for="coupleInput1">
+                Couple Names
+            </label>
+            <div class="couple-input-row">
+                <input type="text" id="coupleInput1" class="couple-input" placeholder="Name 1" autocomplete="off" />
+                <input type="text" id="coupleInput2" class="couple-input" placeholder="Name 2" autocomplete="off" />
+            </div>
+            <button type="button" class="save-names-btn" id="saveNamesBtn">
+                Save Names
+            </button>
+            <span class="save-success" id="saveSuccessMsg">Saved!</span>
+        </div>
 
-        window.onload = function() {
-            applyTheme();
-            loadNames();
-            darkModeToggle.addEventListener('change', toggleDarkMode);
-            saveNamesButton.addEventListener('click', saveNames);
-            removePhotoButton.addEventListener('click', removePhoto);
-        }
+        <!-- Theme Switcher Dropdown -->
+        <div style="margin: 2rem 0 1.6rem 0; text-align: center;">
+            <label for="themeSelect" style="font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem; display: block;">
+                Theme:
+            </label>
+            <select id="themeSelect" class="theme-select" style="padding: 0.55em 1.2em; border-radius: 7px; font-size: 1rem; border: 1px solid #ececec; background: #fff; color: black; outline: none;">
+                <!-- Options populated by ui.js -->
+            </select>
+        </div>
+
+        <ul class="settings-list">
+            <li>
+                <a href="https://discord.gg/UGBFVrcKKx" class="settings-link" target="_blank" rel="noopener">
+                    JOIN DISCORD
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l7-7-7-7"/></svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://stadiastudios.github.io/stadia/" class="settings-link" target="_blank" rel="noopener">
+                    OFFICIAL WEBSITE
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l7-7-7-7"/></svg>
+                </a>
+            </li>
+            <li>
+                <a href="tos.html" class="settings-link" target="_blank" rel="noopener">
+                    TERMS OF SERVICE
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l7-7-7-7"/></svg>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:stadiastudios.support@proton.me" class="settings-link">
+                    CONTACT SUPPORT &nbsp;✉️
+                </a>
+            </li>
+        </ul>
+
+        <script src="ui.js"></script>
+        <script src="navbar.js"></script>
+    </div>
+    <!-- Move navbar.js loading to end of body and after the DOM is ready,
+         and ensure script uses DOMContentLoaded if injecting navbar dynamically -->
+    <script>
+        // Dynamically load navbar.js after DOMContentLoaded, so navbar injects properly
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dynamically create a script tag for navbar.js
+            var script = document.createElement('script');
+            script.src = 'navbar.js';
+            script.defer = true;
+            document.body.appendChild(script);
+
+            // COUPLE NAME STORAGE KEY
+            const COUPLE_NAMES_KEY = '__couple_names';
+            const input1 = document.getElementById('coupleInput1');
+            const input2 = document.getElementById('coupleInput2');
+            const saveBtn = document.getElementById('saveNamesBtn');
+            const successMsg = document.getElementById('saveSuccessMsg');
+
+            // RELATIONSHIP START DATE KEY - must match index.html
+            const RELATIONSHIP_DATE_KEY = '__relationship_start_date';
+            const dateInput = document.getElementById('relationshipStartDate');
+            const saveDateBtn = document.getElementById('saveDateBtnSettings');
+            const dateSuccessMsg = document.getElementById('saveDateSuccessMsg');
+
+            // Load existing couple names if any
+            try {
+                const existing = localStorage.getItem(COUPLE_NAMES_KEY);
+                if (existing) {
+                    const names = JSON.parse(existing);
+                    if (Array.isArray(names) && names.length >= 2) {
+                        input1.value = names[0];
+                        input2.value = names[1];
+                    }
+                }
+            } catch (err) {}
+
+            // Load existing start date if any
+            try {
+                const existingDate = localStorage.getItem(RELATIONSHIP_DATE_KEY);
+                if (existingDate) {
+                    dateInput.value = existingDate;
+                }
+            } catch (err) {}
+
+            saveBtn.addEventListener('click', () => {
+                const name1 = input1.value.trim();
+                const name2 = input2.value.trim();
+                localStorage.setItem(COUPLE_NAMES_KEY, JSON.stringify([name1, name2]));
+                // Show info
+                successMsg.classList.add('active');
+                setTimeout(() => successMsg.classList.remove('active'), 1400);
+            });
+
+            // Save relationship start date, syncs with index.html
+            saveDateBtn.addEventListener('click', () => {
+                const dateVal = dateInput.value;
+                if (dateVal) {
+                    localStorage.setItem(RELATIONSHIP_DATE_KEY, dateVal);
+                    // Show info
+                    dateSuccessMsg.classList.add('active');
+                    setTimeout(() => dateSuccessMsg.classList.remove('active'), 1400);
+                }
+            });
+
+            // Optional: if you want to dynamically display the version, you could set here
+            // document.getElementById('appVersionValue').innerHTML = '<strong>1.0.0</strong>';
+            // In practice, template engines or build scripts can inject the current version.
+        });
     </script>
 </body>
 </html>

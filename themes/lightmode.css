@@ -1,0 +1,168 @@
+:root {
+    --background: #f6f8fa;
+    --card-bg: #fff;
+    --text-primary: #151718;
+    --text-secondary: #757a87;
+    --accent-color: #f472b6;
+    --accent-hover: #db2777;
+    --border-color: #e5e8ec;
+    --shadow: 0 2px 16px rgb(210 210 210 / 10%);
+    --placeholder-bg: #f2f2f6;
+    --header-bg: #fff;
+}
+
+body, html {
+    background: var(--background) !important;
+    color: var(--text-primary) !important;
+}
+
+.navbar, 
+.navbar-main, 
+.navbar-container,
+.navbar-content {
+    background: var(--header-bg) !important;
+    color: var(--text-primary) !important;
+    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hamburger,
+.hamburger svg,
+.hamburger-icon,
+.navbar-hamburger,
+.navbar-toggle,
+.navbar-menu-icon,
+.menu-toggle svg,
+.menu-toggle-icon {
+    color: inherit !important;
+    fill: inherit !important;
+    stroke: inherit !important;
+}
+
+.hamburger svg path,
+.hamburger-icon svg path,
+.navbar-hamburger svg path,
+.navbar-toggle svg path,
+.navbar-menu-icon svg path,
+.menu-toggle svg path,
+.menu-toggle-icon svg path {
+    stroke: inherit !important;
+    fill: inherit !important;
+    color: inherit !important;
+}
+
+.settings-wrapper, .card, .photo-wrapper, .photo-container {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+    color: var(--text-primary);
+}
+
+/* Fix: Make relationship date input in settings visually consistent and readable in light mode */
+input,
+select,
+textarea {
+    background: #fff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+/* Specifically target the relationship start date input in settings */
+.relationship-date-input {
+    background: #fff !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    /* Add extra visible placeholder, caret color, and shadow for clarity, if needed */
+    box-shadow: 0 1px 4px 0 #f3ebe9cc;
+    caret-color: var(--accent-color);
+}
+.relationship-date-input:focus {
+    border-color: var(--accent-color) !important;
+    background: #fff !important;
+    color: var(--text-primary) !important;
+    outline: none !important;
+}
+.relationship-date-label {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+/* End fix */
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.primary-btn,
+.save-names-btn {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    transition: background 0.18s;
+}
+.primary-btn:hover,
+.save-names-btn:hover {
+    background: var(--accent-hover);
+}
+
+.couple-input {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.couple-label {
+    color: var(--accent-color);
+}
+
+.save-success {
+    color: var(--accent-color);
+}
+
+.settings-link,
+.settings-link:visited {
+    color: var(--accent-color);
+}
+.settings-link:hover {
+    color: #e15295;
+}
+
+.photo-container {
+    background: var(--placeholder-bg);
+}
+
+.placeholder {
+    color: #a1a5b2;
+    background: var(--placeholder-bg);
+    border: 1.5px dashed #e5e8ec;
+}
+
+.duration-list li,
+#altStatsContainer p,
+.milestone-card {
+    background: var(--card-bg);
+    color: var(--text-primary);
+}
+
+::-webkit-input-placeholder { color: #b6b9c0; }
+::-moz-placeholder { color: #b6b9c0; }
+:-ms-input-placeholder { color: #b6b9c0; }
+::placeholder { color: #b6b9c0; }
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: #eceef0;
+}
+::-webkit-scrollbar-thumb {
+    background: #dedede;
+    border-radius: 8px;
+}
+
+@media (max-width: 540px) {
+    .settings-wrapper,
+    .card {
+        box-shadow: none;
+    }
+}
