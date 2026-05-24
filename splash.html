@@ -15,11 +15,9 @@
             margin: 0;
             min-height: 100vh;
 
-            /* Enable smoother custom scrollbar look for whole page (Webkit) */
             scrollbar-width: thin;
             scrollbar-color: var(--accent-color,#f472b6) var(--background,#fafafa);
         }
-        /* Custom Scrollbar for Webkit browsers (Chrome, Edge, Safari) */
         ::-webkit-scrollbar {
             width: 10px;
             background: var(--background, #1b1b1b);
@@ -30,6 +28,18 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, var(--accent-hover, #db2777) 85%, var(--card-bg, #fff) 100%);
+        }
+
+        /* Fix iOS wide date input issue */
+        input[type="date"] {
+            max-width: 220px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        @media (max-width: 450px) {
+            input[type="date"] {
+                max-width: 100%;
+            }
         }
     </style>
 </head>  

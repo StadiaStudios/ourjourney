@@ -1,11 +1,13 @@
-// Theme definitions - just add new keys for available themes
 const THEMES = {
     dark: 'themes/dark.css',
     light: 'themes/lightmode.css',
     pink: 'themes/pink.css',
+    moogle: 'themes/moogle.css',
+    purple: 'themes/purple.css',
+    xmas: 'themes/xmas.css',
+    spooky: 'themes/spooky.css',
 };
 
-// This will insert or update the theme <link> in <head>
 function loadTheme(theme) {
     let themeLink = document.getElementById('themeStylesheet');
     if (!themeLink) {
@@ -19,9 +21,7 @@ function loadTheme(theme) {
     localStorage.setItem('__app_theme', theme);
 }
 
-// Run after DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Sidebar Controls (unchanged)
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const sidebarMenu = document.getElementById('sidebarMenu');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -35,11 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburgerBtn?.addEventListener('click', toggleSidebar);
     sidebarOverlay?.addEventListener('click', toggleSidebar);
 
-    // Load theme from storage or fallback to dark
     const savedTheme = localStorage.getItem('__app_theme') || 'dark';
     loadTheme(savedTheme);
 
-    // Theme toggle (simple cycling, for now just dark <-> light)
     themeToggle?.addEventListener('click', (e) => {
         e.preventDefault();
         const current = localStorage.getItem('__app_theme') || 'dark';
@@ -50,10 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleSidebar();
     });
 
-    // --- Theme dropdown for settings.html ---
     const themeSelect = document.getElementById('themeSelect');
     if (themeSelect) {
-        // Populate options dynamically in case themes are added later
         themeSelect.innerHTML = '';
         for (const key in THEMES) {
             const opt = document.createElement('option');
@@ -61,10 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
             opt.textContent = key.charAt(0).toUpperCase() + key.slice(1);
             themeSelect.appendChild(opt);
         }
-        // Set current value
         const currentTheme = localStorage.getItem('__app_theme') || 'dark';
         themeSelect.value = currentTheme;
-        // Handle selection change
         themeSelect.addEventListener('change', (e) => {
             loadTheme(e.target.value);
         });

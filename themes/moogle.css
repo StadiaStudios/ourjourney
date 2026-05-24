@@ -1,0 +1,254 @@
+:root {
+    --bg-color: #202124;
+    --card-bg: #292a2d;
+    --text-primary: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --accent-color: #8ab4f8;
+    --accent-hover: #4285f4;
+    --border-color: #3a3b3c;
+    --header-bg: #171717;
+    --milestone-label: #8ab4f8;
+    --stroke-black: 0 0.5px 1px #000a, 0 0.5px 1px #0003;
+    --shadow: 0 2px 8px rgba(60,64,67,.23), 0 3px 16px rgba(32,33,36,.23);
+}
+
+body {
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-shadow: none;
+}
+
+.sticky-header,
+.nav-container h1,
+.header-title,
+.ourjourney-title {
+    background: var(--header-bg);
+    color: var(--accent-color) !important;
+    text-shadow: var(--stroke-black);
+    border-bottom: 1px solid var(--border-color);
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 14px;
+    min-height: 42px;
+    box-shadow: var(--shadow);
+    background: var(--header-bg);
+}
+
+#mainTitle {
+    font-size: 1.18rem;
+    margin: 0;
+    color: var(--accent-color);
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 21px;
+    height: 2.4px;
+    margin: 3px 0;
+    background: var(--accent-color);
+    border-radius: 2px;
+    transition: background 0.3s;
+}
+
+.sidebar {
+    background: #232428;
+    border-right: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.sidebar a,
+#sidebarMenu a {
+    display: block;
+    color: var(--text-primary);
+    padding: 14px 22px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar a:hover,
+#sidebarMenu a:hover {
+    background: var(--accent-color);
+    color: #111;
+}
+
+.overlay {
+    background: rgba(32,33,36,0.5);
+}
+
+#settingsLink,
+#homeLink,
+#stadiaStudiosLink {
+    font-size: 1em;
+}
+
+.milestone-card,
+.duration-list li,
+#altStatsContainer p,
+#altStatsContainer strong {
+    background: var(--card-bg);
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    padding: 10px 14px;
+    margin: 8px 0;
+    text-shadow: none;
+}
+
+.milestone-card span,
+.duration-list li span,
+#durationList li span,
+#altStatsContainer strong {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.milestone-label,
+#upcoming-milestones-label,
+.upcoming-milestones-label,
+#milestones h2,
+.milestones-section h2,
+#milestones-header,
+.milestones-header,
+h2.upcoming-milestones,
+.upcoming-milestones-title {
+    color: var(--milestone-label) !important;
+    background: none !important;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-shadow: none;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
+
+h2,
+h3,
+h4 {
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    color: var(--text-primary);
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+    background: var(--accent-color);
+    color: #111;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 18px;
+    font-size: 1rem;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-weight: 600;
+    box-shadow: 0 1px 2px #0005;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover {
+    background: var(--accent-hover);
+    color: #fff;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+textarea,
+select {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    background: #292a2d;
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: inherit;
+    box-shadow: none;
+    transition: border 0.2s, background 0.2s;
+    margin-bottom: 8px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: #232428;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+}
+
+body,
+.sticky-header,
+.nav-container h1,
+.milestone-label,
+.milestone-card,
+.duration-list li,
+#altStatsContainer p,
+#altStatsContainer strong {
+    text-shadow: none !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: #222327;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #44474d;
+    border-radius: 6px;
+}
+
+@media (max-width: 600px) {
+    .nav-container {
+        padding: 7px 5px;
+        min-height: 38px;
+    }
+    .sidebar a,
+    #sidebarMenu a {
+        padding: 14px 12px;
+    }
+    .card,
+    .milestone-card {
+        padding: 10px;
+    }
+}

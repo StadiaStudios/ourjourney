@@ -1,5 +1,4 @@
 :root {
-    /* Dark Mode */
     --bg-color: #111111;
     --card-bg: #1f1f1f;
     --text-primary: #e2e8f0;
@@ -24,7 +23,6 @@ body {
     min-height: 100vh;
 }
 
-/* Sticky Navigation & Sidebar */
 .sticky-header {
     position: sticky;
     top: 0;
@@ -107,7 +105,6 @@ body {
     display: block;
 }
 
-/* Layout & Cards */
 .container {
     max-width: 600px;
     margin: 2rem auto;
@@ -129,7 +126,6 @@ body {
     display: none !important;
 }
 
-/* Typography & Forms */
 .subtitle {
     font-size: 0.875rem;
     text-transform: uppercase;
@@ -173,7 +169,6 @@ input[type="date"] {
     background-color: var(--accent-hover);
 }
 
-/* Photos & Lists */
 .photo-container {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -218,7 +213,6 @@ input[type="date"] {
     font-weight: 800;
 }
 
-/* Milestone Cards */
 .milestone-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);

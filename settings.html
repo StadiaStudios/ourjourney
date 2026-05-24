@@ -14,12 +14,9 @@
             font-family: 'Inter', Arial, sans-serif;
             margin: 0;
             min-height: 100vh;
-
-            /* Enable smoother custom scrollbar look for whole page (Webkit) */
             scrollbar-width: thin;
             scrollbar-color: var(--accent-color,#f472b6) var(--background,#fafafa);
         }
-        /* Custom Scrollbar for Webkit browsers (Chrome, Edge, Safari) */
         ::-webkit-scrollbar {
             width: 10px;
             background: var(--background, #1b1b1b);
@@ -31,7 +28,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, var(--accent-hover, #db2777) 85%, var(--card-bg, #fff) 100%);
         }
-
         .settings-wrapper {
             max-width: 400px;
             margin: 3rem auto;
@@ -42,7 +38,6 @@
             scrollbar-width: thin;
             scrollbar-color: var(--accent-color, #f472b6) var(--card-bg, #fff);
         }
-        /* Custom Scrollbar for .settings-wrapper (Webkit) */
         .settings-wrapper::-webkit-scrollbar {
             width: 8px;
             background: var(--card-bg, #fff);
@@ -54,7 +49,6 @@
         .settings-wrapper::-webkit-scrollbar-thumb:hover {
             background: var(--accent-hover, #db2777);
         }
-
         .settings-title {
             font-size: 2rem;
             margin: 0 0 1.2rem;
@@ -121,7 +115,8 @@
             box-shadow: 0 1px 8px rgb(60 60 60 / 6%);
             padding: 1.35rem 1rem 1.5rem 1rem;
         }
-        .couple-label,.relationship-date-label {
+        .couple-label,
+        .relationship-date-label {
             display: block;
             color: var(--text-secondary, #888);
             margin-bottom: 0.7rem;
@@ -140,7 +135,8 @@
             .settings-wrapper {
                 padding: 1.2rem 0.4rem;
             }
-            .couple-names-box, .relationship-date-box {
+            .couple-names-box,
+            .relationship-date-box {
                 padding: 1rem 0.4rem 1.2rem 0.4rem;
             }
             .couple-input-row {
@@ -150,7 +146,7 @@
         }
         .couple-input, .relationship-date-input {
             width: 100%;
-            min-width: 0; /* Prevent overflow with flex/grid */
+            min-width: 0;
             padding: 0.65em 0.9em;
             border-radius: 7px;
             border: 1px solid var(--border-color, #ececec);
@@ -161,10 +157,24 @@
             transition: border 0.15s;
             box-sizing: border-box;
         }
+        .relationship-date-input[type="date"] {
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        @supports (-webkit-touch-callout: none) {
+            .relationship-date-input[type="date"] {
+                width: 100%;
+                min-width: 0;
+                max-width: 100%;
+            }
+        }
         .couple-input:focus, .relationship-date-input:focus {
             border-color: var(--accent-color, #f472b6);
         }
-        .save-names-btn, .save-date-btn {
+        .save-names-btn,
+        .save-date-btn {
             width: 100%;
             background: var(--accent-color, #f472b6);
             border: none;
@@ -178,10 +188,12 @@
             margin-top: 0.4em;
             transition: background 0.16s;
         }
-        .save-names-btn:hover, .save-date-btn:hover {
+        .save-names-btn:hover,
+        .save-date-btn:hover {
             background: var(--accent-hover, #db2777);
         }
-        .save-success, .save-date-success {
+        .save-success,
+        .save-date-success {
             display: none;
             text-align: center;
             color: var(--accent-color, #f472b6);
@@ -189,24 +201,20 @@
             margin-top: 0.9em;
             font-weight: 500;
         }
-        .save-success.active, .save-date-success.active {
+        .save-success.active,
+        .save-date-success.active {
             display: block;
         }
-   
     </style>
 </head>
 <body>
-    <!-- Navbar (injected by navbar.js, like index.html) -->
     <div id="navbar-placeholder"></div>
     <div class="settings-wrapper">
         <div class="settings-title">Settings</div>
-        
-        <!-- App Version Display Row (NEW) -->
         <div class="app-version-row">
             <span class="app-version-label">App Version:</span>
-            <span id="appVersionValue"><strong>1.9.7</strong></span>
+            <span id="appVersionValue"><strong>1.10.8</strong></span>
         </div>
-        
         <div class="relationship-date-box">
             <label class="relationship-date-label" for="relationshipStartDate">
                 Relationship Start Date
@@ -217,7 +225,6 @@
             </button>
             <span class="save-date-success" id="saveDateSuccessMsg">Saved!</span>
         </div>
-
         <div class="couple-names-box">
             <label class="couple-label" for="coupleInput1">
                 Couple Names
@@ -231,17 +238,13 @@
             </button>
             <span class="save-success" id="saveSuccessMsg">Saved!</span>
         </div>
-
-        <!-- Theme Switcher Dropdown -->
         <div style="margin: 2rem 0 1.6rem 0; text-align: center;">
             <label for="themeSelect" style="font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem; display: block;">
                 Theme:
             </label>
             <select id="themeSelect" class="theme-select" style="padding: 0.55em 1.2em; border-radius: 7px; font-size: 1rem; border: 1px solid #ececec; background: #fff; color: black; outline: none;">
-                <!-- Options populated by ui.js -->
             </select>
         </div>
-
         <ul class="settings-list">
             <li>
                 <a href="https://discord.gg/UGBFVrcKKx" class="settings-link" target="_blank" rel="noopener">
@@ -267,35 +270,27 @@
                 </a>
             </li>
         </ul>
-
         <script src="ui.js"></script>
         <script src="navbar.js"></script>
     </div>
-    <!-- Move navbar.js loading to end of body and after the DOM is ready,
-         and ensure script uses DOMContentLoaded if injecting navbar dynamically -->
     <script>
-        // Dynamically load navbar.js after DOMContentLoaded, so navbar injects properly
         document.addEventListener('DOMContentLoaded', function() {
-            // Dynamically create a script tag for navbar.js
             var script = document.createElement('script');
             script.src = 'navbar.js';
             script.defer = true;
             document.body.appendChild(script);
 
-            // COUPLE NAME STORAGE KEY
             const COUPLE_NAMES_KEY = '__couple_names';
             const input1 = document.getElementById('coupleInput1');
             const input2 = document.getElementById('coupleInput2');
             const saveBtn = document.getElementById('saveNamesBtn');
             const successMsg = document.getElementById('saveSuccessMsg');
 
-            // RELATIONSHIP START DATE KEY - must match index.html
             const RELATIONSHIP_DATE_KEY = '__relationship_start_date';
             const dateInput = document.getElementById('relationshipStartDate');
             const saveDateBtn = document.getElementById('saveDateBtnSettings');
             const dateSuccessMsg = document.getElementById('saveDateSuccessMsg');
 
-            // Load existing couple names if any
             try {
                 const existing = localStorage.getItem(COUPLE_NAMES_KEY);
                 if (existing) {
@@ -307,7 +302,6 @@
                 }
             } catch (err) {}
 
-            // Load existing start date if any
             try {
                 const existingDate = localStorage.getItem(RELATIONSHIP_DATE_KEY);
                 if (existingDate) {
@@ -319,25 +313,18 @@
                 const name1 = input1.value.trim();
                 const name2 = input2.value.trim();
                 localStorage.setItem(COUPLE_NAMES_KEY, JSON.stringify([name1, name2]));
-                // Show info
                 successMsg.classList.add('active');
                 setTimeout(() => successMsg.classList.remove('active'), 1400);
             });
 
-            // Save relationship start date, syncs with index.html
             saveDateBtn.addEventListener('click', () => {
                 const dateVal = dateInput.value;
                 if (dateVal) {
                     localStorage.setItem(RELATIONSHIP_DATE_KEY, dateVal);
-                    // Show info
                     dateSuccessMsg.classList.add('active');
                     setTimeout(() => dateSuccessMsg.classList.remove('active'), 1400);
                 }
             });
-
-            // Optional: if you want to dynamically display the version, you could set here
-            // document.getElementById('appVersionValue').innerHTML = '<strong>1.0.0</strong>';
-            // In practice, template engines or build scripts can inject the current version.
         });
     </script>
 </body>
